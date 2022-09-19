@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Expenses from "./route/expenses";
 import Invoices from "./route/invoices";
 import Profile from "./page/profile/profile";
+import PSider from "./page/sider/sider";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
                 <Route path="expenses" element={<Expenses/>}/>
                 <Route path="invoices" element={<Invoices/>}/>
                 <Route path="profile" element={<Profile/>}/>
+                <Route path="psider" element={<PSider/>}/>
             </Route>
         </Routes>
 
