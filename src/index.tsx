@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Expenses from "./route/expenses";
 import Invoices from "./route/invoices";
-import Profile from "./page/profile/profile";
 import PSider from "./page/sider/sider";
+import Profile from "./page/profile/profile";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
