@@ -43,17 +43,13 @@
 .code-box-demo {
   text-align: center;
 }
-.ant-layout-header{
-  border-radius: 0 20px 0 0;
-}
+
 .ant-layout-footer {
-  border-radius: 0 0 20px 0;
+  border-radius: 0 0 10px 0;
   color: #fff;
   background: #7dbcea;
 }
-.ant-layout-header {
-  background: #6aa0c7;
-}
+
 .ant-layout-footer {
   background: #6aa0c7;
 }
@@ -61,7 +57,7 @@
   line-height: 1.5;
 }
 .ant-layout-sider {
-  border-radius: 20px 0 0 20px;
+  border-radius: 10px 0 0 10px;
   color: #fff;
   line-height: 120px;
   background: #ffffff;
@@ -83,7 +79,7 @@
 }
 
 .ant-layout{
-  border-radius: 20px;
+  border-radius: 10px;
   -moz-box-shadow:0 0 6px #333333; -webkit-box-shadow:0 0 6px #333333; box-shadow:0 0 6px #333333;
 }
 
