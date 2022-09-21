@@ -1,13 +1,42 @@
-
-.header-content {
-  background-color: #ffffff;
-  .pl-header-text{
-    .pl-header-title{
-      font-weight: bold;
+.headerContent {
+  :global {
+    .ant-layout-header {
+      background: #f9fbfc;
+      padding: 0 2vw;
+      display: flex;
+      align-items: center;
     }
+    p{
+      margin-bottom: 0;
+    }
+  }
+
+  .plHeaderText {
+    width: 30%;
+    .plHeaderTitle {
+      font-weight: bolder;
+      font-family: cursive;
+      font-size: 20px;
+      line-height: normal;
+    }
+    .plHeaderDesc{
+      line-height: normal;
+    }
+  }
+
+  .plHeaderSearch{
+    width: 20%;
+    display: flex;
   }
 }
 
+
+////background-color: #ffffff;
+//.pl-header-text{
+//  .pl-header-title{
+//    font-weight: bold;
+//  }
+//}
 //.pl-header-text {
 //
 //  //position: absolute;

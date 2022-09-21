@@ -1,14 +1,11 @@
 import Sider from "antd/es/layout/Sider";
 import sider from "./sider.less"
-import "./sider.less"
+// import "./sider.less"
 import {Menu} from "antd";
 import {useState} from "react";
 import {
     DesktopOutlined,
-    FileOutlined,
     PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
 } from '@ant-design/icons';
 // const { Header, Content, Footer, Sider } = Layout;
 
