@@ -3,11 +3,10 @@ import {Header} from "antd/es/layout/layout";
 import header from './header.less'
 import Search from "antd/es/input/Search";
 import {
-    MenuOutlined
+    MenuOutlined,
+    ZoomInOutlined
 } from '@ant-design/icons';
-import {Button, Popover, Radio, Space} from "antd";
-import ButtonGroup from "antd/es/button/button-group";
-// import "./header.less"
+import {Avatar, Button, Popover, Radio, Space,Image} from "antd";
 
 export default function PHeader() {
 
@@ -29,11 +28,11 @@ export default function PHeader() {
         console.log(value)
     }
     const radioOnChange = function (value:any) {
-        setRadioValue(value.target.value)
+        setPlaceholder(value.target.value)
         console.log(value)
     }
     const clearRadioSel = function (value:any) {
-        setRadioValue("")
+        setPlaceholder("")
     }
 
     const popOverContent = (
@@ -56,6 +55,7 @@ export default function PHeader() {
     )
 
 
+    const avatarImg = <Image src="https://joeschmoe.io/api/v1/random" />
 
     return (
         <div className={header.headerContent}>
@@ -67,7 +67,11 @@ export default function PHeader() {
                 </div>
                 <div className={header.plHeaderSearch}>
                     <Search placeholder={placeholder} onSearch={onSearch} allowClear enterButton
-                            suffix={popOver} addonBefore={radioValue}></Search>
+                            suffix={popOver}></Search>
+                </div>
+
+                <div className={header.plHeaderProfile}>
+                    <Avatar src={avatarImg} shape={"square"} size={"large"} icon={<ZoomInOutlined />}></Avatar>
                 </div>
             </Header>
         </div>

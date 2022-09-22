@@ -22,6 +22,7 @@
   },
   "include": [
     "src",
+//    "dist",
     "./externals.d.ts"
   ]
 }

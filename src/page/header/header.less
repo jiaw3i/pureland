@@ -1,3 +1,5 @@
+@import '../general.less';
+
 .headerContent {
   :global {
     .ant-layout-header {
@@ -5,14 +7,34 @@
       padding: 0 2vw;
       display: flex;
       align-items: center;
+      justify-content: space-between
     }
     p{
       margin-bottom: 0;
     }
+    .ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      box-shadow: 0 3px 2px #333333;
+    }
+    .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
+      border-radius: 0 20px 20px 0;
+      box-shadow: 0 3px 2px #333333;
+    }
+    .ant-btn-primary {
+      border-color: @forest-green;
+      background: @forest-green;
+    }
+    .ant-image-mask-info {
+      display: none;
+    }
+    .ant-avatar-lg.ant-avatar-icon {
+      background: darkorange;
+    }
   }
 
   .plHeaderText {
-    width: 30%;
+    //width: 30%;
     .plHeaderTitle {
       font-weight: bolder;
       font-family: cursive;
@@ -25,8 +47,13 @@
   }
 
   .plHeaderSearch{
-    width: 20%;
+    //width: 30%;
     display: flex;
+    border-radius: 20px;
+  }
+
+  .plHeaderProfile{
+    border-radius: 5px;
   }
 }
 

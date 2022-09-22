@@ -21,8 +21,6 @@ root.render(
                 <Route path="expenses" element={<Expenses/>}/>
                 <Route path="invoices" element={<Invoices/>}/>
                 <Route path="profile" element={<Profile/>}/>
-                <Route path="psider" element={<PSider/>}/>
-                <Route path="pheader" element={<PHeader/>}/>
             </Route>
         </Routes>
 
