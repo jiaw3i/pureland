@@ -10,6 +10,7 @@ import Invoices from "./route/invoices";
 import PSider from "./page/sider/sider";
 import Profile from "./page/profile/profile";
 import PHeader from "./page/header/header";
+import DraggableList from "./page/draggablelist/draggablelist";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -21,6 +22,7 @@ root.render(
                 <Route path="expenses" element={<Expenses/>}/>
                 <Route path="invoices" element={<Invoices/>}/>
                 <Route path="profile" element={<Profile/>}/>
+                <Route path="draggablelist" element={<DraggableList/>}/>
             </Route>
         </Routes>
 

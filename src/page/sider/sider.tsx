@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons';
 // const { Header, Content, Footer, Sider } = Layout;
 
-
 function getItem(label: string, key: string, icon?: JSX.Element, children?: any) {
     return {
         key,
@@ -19,9 +18,12 @@ function getItem(label: string, key: string, icon?: JSX.Element, children?: any)
     };
 }
 
+
+
 const items = [
     getItem('个人主页', '1', <PieChartOutlined />),
     getItem('详细信息', '2', <DesktopOutlined/>),
+
     // getItem('User', 'sub1', <UserOutlined/>, [
     //     getItem('Tom', '3'),
     //     getItem('Bill', '4'),
