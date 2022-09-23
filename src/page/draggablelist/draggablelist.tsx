@@ -7,29 +7,44 @@ import swap from 'lodash-move'
 
 import styles from './styles.less'
 import './styles.less'
+import {log} from "util";
 
+/**
+ * Creates the fn to be passed to useSprings, which takes the current item order and returns props for each spring (item)
+ * 创建传递给useSprings的fn，该fn接受当前items并为每个spring（item）返回属性
+ * 闭包函数，返回一个有index:number参数，返回值为spring一些属性的函数
+ * @param order the current item order 当前项目顺序
+ * @param active whether or not the user is currently dragging an item 用户是否正在拖动项目
+ * @param originalIndex the index of the item being dragged 当前拖动项目的索引
+ * @param curIndex the current index of the item being dragged 当前拖动项目的当前索引
+ * @param y the current y position of the item being dragged 当前拖动项目的当前y坐标
+ * @returns the props to be passed to the spring 对应的spring的属性
+ */
 const fn =
     (order: number[], active = false, originalIndex = 0, curIndex = 0, y = 0) =>
-        (index: number) =>
-            active && index === originalIndex
-                ? {
-                    y: curIndex * 100 + y,
-                    scale: 1.1,
-                    zIndex: 1,
-                    shadow: 15,
-                    immediate: (key: string) => key === 'zIndex',
-                    config: (key: string) => (key === 'y' ? config.stiff : config.default),
-                }
-                : {
-                    y: order.indexOf(index) * 100,
-                    scale: 1,
-                    zIndex: 0,
-                    shadow: 1,
-                    immediate: false,
-                }
+    (index: number) => {
+        console.log(index)
+        return active && index === originalIndex
+            ? {
+                y: curIndex * 100 + y,
+                scale: 1.1,
+                zIndex: 1,
+                shadow: 15,
+                immediate: (key: string) => key === 'zIndex',
+                config: (key: string) => (key === 'y' ? config.stiff : config.default),
+            }
+            : {
+                y: order.indexOf(index) * 100,
+                scale: 1,
+                zIndex: 0,
+                shadow: 1,
+                immediate: false,
+            }
 
+    }
 function DraggableList({items}: { items: string[] }) {
     const order = useRef(items.map((_, index) => index)) // Store indicies as a local ref, this represents the item order
+    console.log("order.current",order.current)
     const [springs, api] = useSprings(items.length, fn(order.current)) // Create springs, each corresponds to an item, controlling its transform, scale, etc.
     const bind = useDrag(({args: [originalIndex], active, movement: [, y]}) => {
         const curIndex = order.current.indexOf(originalIndex)
@@ -61,7 +76,7 @@ function DraggableList({items}: { items: string[] }) {
 export default function App() {
     return (
         <div className="flex fill center">
-            <DraggableList items={'Lorem ipsum dolor sit'.split(' ')}/>
+            <DraggableList items={'0 1 2 3'.split(' ')}/>
         </div>
     )
 }
