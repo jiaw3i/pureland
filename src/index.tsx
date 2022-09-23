@@ -22,8 +22,8 @@ root.render(
                 <Route path="expenses" element={<Expenses/>}/>
                 <Route path="invoices" element={<Invoices/>}/>
                 <Route path="profile" element={<Profile/>}/>
-                <Route path="draggablelist" element={<DraggableList/>}/>
             </Route>
+            <Route path="draggablelist" element={<DraggableList/>}/>
         </Routes>
 
     </BrowserRouter>,
