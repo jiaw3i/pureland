@@ -40,7 +40,6 @@ const fn =
                 shadow: 1,
                 immediate: false,
             }
-
     }
 function DraggableList({items}: { items: string[] }) {
     const order = useRef(items.map((_, index) => index)) // Store indicies as a local ref, this represents the item order

@@ -7,10 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Expenses from "./route/expenses";
 import Invoices from "./route/invoices";
-import PSider from "./page/sider/sider";
 import Profile from "./page/profile/profile";
-import PHeader from "./page/header/header";
 import DraggableList from "./page/draggablelist/draggablelist";
+import {UseSpringDemoPage} from "./page/test/test";
+import PLContent from "./page/content/content";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -24,6 +24,8 @@ root.render(
                 <Route path="profile" element={<Profile/>}/>
             </Route>
             <Route path="draggablelist" element={<DraggableList/>}/>
+            <Route path="UseSpringDemoPage" element={<UseSpringDemoPage/>}/>
+            <Route path="content" element={<PLContent/>}/>
         </Routes>
 
     </BrowserRouter>,
