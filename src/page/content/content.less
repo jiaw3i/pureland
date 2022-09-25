@@ -4,7 +4,10 @@
     min-height: 120px;
     color: #fff;
     line-height: 120px;
-    background: rgb(255, 0, 183);
+    background: #f9fbfc;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 
@@ -16,11 +19,58 @@
 }
 
 .imageMessage {
-  background: url("../../static/bg_1.jpg") no-repeat;
-  width: 200px;
-  height: 100px;
+  background: url("../../static/kohl-3722517_960_720.webp") no-repeat;
+  background-size: cover;
+  width: 25vw;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 3px 2px #333333;
+  line-height: normal;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+  p{
+    margin-bottom: 0;
+  }
+  .contentHeadTitle{
+    font-size: x-large;
+  }
+  .contentHeadDesc{
+    font-size: medium;
+  }
 }
 
 .contentHead{
   display: flex;
+  padding: 20px 20px;
+  justify-content: center;
+  vertical-align: center;
+}
+.todo{
+  display: flex;
+  padding: 20px 20px;
+  justify-content: center;
+  vertical-align: center;
+}
+.mainContent{
+  //display: flex;
+  padding: 20px 20px;
+  //justify-content: center;
+  //vertical-align: center;
+}
+.baseInfo{
+  display: inline-block;
+  float: left;
+  padding: 20px 20px;
+  justify-content: center;
+  vertical-align: center;
+}
+.experience{
+  display: inline-block;
+  float: right;
+  padding: 20px 20px;
+  justify-content: center;
+  vertical-align: center;
 }

@@ -1,0 +1,40 @@
+
+
+:global {
+  .ant-list {
+    color: white;
+  }
+  .ant-list-item-meta-description {
+    white-space: nowrap;
+    overflow: hidden;
+    color: white;
+    text-overflow: ellipsis;
+  }
+  .ant-list-item-meta-content{
+    color: white;
+  }
+  .ant-list-item {
+    padding: 5px 0;
+    color: white;
+  }
+}
+.todoMain {
+  width: 30vw;
+  height: 150px;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: auto;
+  // 隐藏滚动条
+  &::-webkit-scrollbar {
+      display: none;
+  }
+  background: url("../../static/tree-7391504_960_720.webp") no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.icon {
+  &:hover {
+    cursor: pointer;
+  }
+}
