@@ -3,10 +3,11 @@ import React, {useEffect, useState} from 'react';
 import todo from './todo.less';
 import {CheckSquareOutlined, BorderOutlined} from '@ant-design/icons';
 import {isMainThread} from "worker_threads";
-import {log} from "util";
-
+import TodoItem from "./todoitem";
+import {TodoItemProps} from "./todoitem";
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+
 
 class Item {
     id: number;
@@ -46,6 +47,12 @@ const TodoList = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [list, setList] = useState<Array<Item>>([]);
+    const item:TodoItemProps = {
+        id: 1,
+        title: "string",
+        isFinish: false,
+        isTop: false,
+    }
 
     function getDataById(id: number) {
         return list.find((item) => item.id === id);
@@ -63,18 +70,7 @@ const TodoList = () => {
     }, []);
 
 
-    // const loadMore =
-    //     !initLoading && !loading ? (
-    //         <div
-    //             style={{
-    //                 textAlign: 'center',
-    //                 marginTop: 12,
-    //                 height: 32,
-    //                 lineHeight: '32px',
-    //             }}
-    //         >
-    //             <Button onClick={onLoadMore}>loading more</Button>
-    //         </div>
+
     function todoOnClick(id: number) {
         let dataById = getDataById(id);
 
@@ -89,33 +85,37 @@ const TodoList = () => {
 
     //     ) : null;
     return (
-        <main className={todo.todoMain}>
-            <List
-                className="demo-loadmore-list"
-                loading={initLoading}
-                itemLayout="horizontal"
-                dataSource={list}
+        <div>
+            <TodoItem {...item}>
 
-                renderItem={(item: Item) => {
-                    return (
-                        <List.Item
-                            actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
-                        >
-                            <Skeleton avatar title={false} loading={item.loading} active>
-                                <List.Item.Meta
-                                    avatar={item.isFinish ?
-                                        <CheckSquareOutlined onClick={(): void => todoOnClick(item.id)}
-                                                             className={todo.icon}/>
-                                        : <BorderOutlined onClick={(): void => todoOnClick(item.id)}
-                                                          className={todo.icon}/>}
-                                    description={item.desc}
-                                />
-                            </Skeleton>
-                        </List.Item>
-                    )
-                }}
-            />
-        </main>
+            </TodoItem>
+
+            {/*<List*/}
+            {/*    className="demo-loadmore-list"*/}
+            {/*    loading={initLoading}*/}
+            {/*    itemLayout="horizontal"*/}
+            {/*    dataSource={list}*/}
+
+            {/*    renderItem={(item: Item) => {*/}
+            {/*        return (*/}
+            {/*            <List.Item*/}
+            {/*                actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}*/}
+            {/*            >*/}
+            {/*                <Skeleton avatar title={false} loading={item.loading} active>*/}
+            {/*                    <List.Item.Meta*/}
+            {/*                        avatar={item.isFinish ?*/}
+            {/*                            <CheckSquareOutlined onClick={(): void => todoOnClick(item.id)}*/}
+            {/*                                                 className={todo.icon}/>*/}
+            {/*                            : <BorderOutlined onClick={(): void => todoOnClick(item.id)}*/}
+            {/*                                              className={todo.icon}/>}*/}
+            {/*                        description={item.desc}*/}
+            {/*                    />*/}
+            {/*                </Skeleton>*/}
+            {/*            </List.Item>*/}
+            {/*        )*/}
+            {/*    }}*/}
+            {/*/>*/}
+        </div>
     );
 };
 

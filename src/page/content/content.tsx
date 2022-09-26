@@ -37,15 +37,17 @@ export default function PLContent() {
                         <TodoList/>
                     </animated.div>)
             }
-            <div className={content.mainContent}>
+            <div className={content.leftContent}>
                 <div className={content.baseInfo}>
                     <Profile/>
                 </div>
+                <div className={content.baseInfo}>
+                    <Profile/>
+                </div>
+            </div>
+            <div className={content.rightContent}>
                 <div className={content.experience}>
                     <Experience/>
-                </div>
-                <div className={content.baseInfo}>
-                    <Profile/>
                 </div>
             </div>
 

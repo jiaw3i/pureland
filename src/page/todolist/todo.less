@@ -18,23 +18,59 @@
     color: white;
   }
 }
-.todoMain {
+//.todoMain {
+//  width: 30vw;
+//  height: 150px;
+//  border-radius: 10px;
+//  padding: 10px;
+//  overflow: auto;
+//  // 隐藏滚动条
+//  &::-webkit-scrollbar {
+//      display: none;
+//  }
+//  background: url("../../static/tree-7391504_960_720.webp") no-repeat;
+//  background-size: cover;
+//  color: white;
+//}
+
+.todoItemMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  //padding: 5px;
+  height: 50px;
   width: 30vw;
-  height: 150px;
+  background: white;
   border-radius: 10px;
-  padding: 10px;
-  overflow: auto;
-  // 隐藏滚动条
-  &::-webkit-scrollbar {
-      display: none;
+  box-shadow: 0 3px 2px #333333;
+  color: black;
+  .icon {
+    //margin-right: 10px;
+    line-height: normal;
+    &:hover {
+      cursor: pointer;
+    }
   }
-  background: url("../../static/tree-7391504_960_720.webp") no-repeat;
-  background-size: cover;
-  color: white;
+  .todoItemCA {
+    width: 95%;
+    height: 100%;
+    display: flex;
+  }
+  .todoItemContent{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: normal;
+    background: green;
+    border-radius: 0 10px 10px 0;
+  }
+  .todoItemAction {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    background: darkorange;
+  }
 }
 
-.icon {
-  &:hover {
-    cursor: pointer;
-  }
-}
