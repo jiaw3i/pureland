@@ -1,10 +1,11 @@
 import {Avatar, Button, List, Skeleton} from 'antd';
 import React, {useEffect, useState} from 'react';
 import todo from './todo.less';
-import {CheckSquareOutlined, BorderOutlined} from '@ant-design/icons';
+import {SmileFilled, BorderOutlined} from '@ant-design/icons';
 import {isMainThread} from "worker_threads";
 import TodoItem from "./todoitem";
 import {TodoItemProps} from "./todoitem";
+
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
@@ -47,12 +48,32 @@ const TodoList = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [list, setList] = useState<Array<Item>>([]);
-    const item:TodoItemProps = {
-        id: 1,
-        title: "string",
-        isFinish: false,
-        isTop: false,
-    }
+    const items: Array<TodoItemProps> = [
+        {
+            id: 1,
+            title: "今天写完大字作业",
+            isFinish: false,
+            isTop: false,
+        },
+        {
+            id: 2,
+            title: "参加2点的会议",
+            isFinish: false,
+            isTop: false,
+        },
+        {
+            id: 3,
+            title: "完成履历卡片",
+            isFinish: false,
+            isTop: false,
+        },
+        {
+            id: 4,
+            title: "长文字测试长文字测试长文字测试长文字测试长文字测试长文字测试",
+            isFinish: false,
+            isTop: false,
+        }
+    ];
 
     function getDataById(id: number) {
         return list.find((item) => item.id === id);
@@ -70,7 +91,6 @@ const TodoList = () => {
     }, []);
 
 
-
     function todoOnClick(id: number) {
         let dataById = getDataById(id);
 
@@ -85,10 +105,10 @@ const TodoList = () => {
 
     //     ) : null;
     return (
-        <div>
-            <TodoItem {...item}>
-
-            </TodoItem>
+        <div className={todo.todoMain}>
+            {
+                items.map((item) => <TodoItem {...item}/>)
+            }
 
             {/*<List*/}
             {/*    className="demo-loadmore-list"*/}

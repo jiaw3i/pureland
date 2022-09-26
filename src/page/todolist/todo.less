@@ -1,76 +1,160 @@
 
-
 :global {
   .ant-list {
     color: white;
   }
+
   .ant-list-item-meta-description {
     white-space: nowrap;
     overflow: hidden;
     color: white;
     text-overflow: ellipsis;
   }
-  .ant-list-item-meta-content{
+
+  .ant-list-item-meta-content {
     color: white;
   }
+
   .ant-list-item {
     padding: 5px 0;
     color: white;
   }
+
+  div.ant-typography, .ant-typography p {
+    margin-bottom: .2em;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  div.ant-typography-edit-content{
+    left: 0;
+    margin-top: 0;
+    width: 100%;
+    textarea {
+      margin-bottom: .2em;
+      border: 0;
+      width: 100%;
+      height: 100% !important;
+      display: flex;
+      padding: 0 !important;
+      align-items: center;
+      font-size: 16px;
+      line-height: normal;
+      background: white;
+      border-radius: 0 20px 20px 0;
+      white-space: nowrap;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      &:focus, .ant-input-focused {
+        //border-color: #40a9ff;
+        box-shadow: 0 0 0 0 rgb(24 144 255 / 20%);
+        //border-right-width: 0;
+        //outline: 0;
+      }
+    }
+
+  }
+  textarea.ant-input{
+    min-height: 100%;
+  }
+
 }
-//.todoMain {
-//  width: 30vw;
-//  height: 150px;
-//  border-radius: 10px;
-//  padding: 10px;
-//  overflow: auto;
-//  // 隐藏滚动条
-//  &::-webkit-scrollbar {
-//      display: none;
-//  }
-//  background: url("../../static/tree-7391504_960_720.webp") no-repeat;
-//  background-size: cover;
-//  color: white;
-//}
+
+.todoMain {
+  width: 30vw;
+  height: 150px;
+  border-radius: 10px;
+  padding: 2px;
+  overflow: auto;
+  // 隐藏滚动条
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  //background: url("../../static/tree-7391504_960_720.webp") no-repeat;
+  //background-size: cover;
+  color: white;
+  background: rgb(237, 242, 247);
+}
 
 .todoItemMain {
   display: flex;
   justify-content: space-between;
   align-items: center;
   //padding: 5px;
-  height: 50px;
-  width: 30vw;
+  height: 41px;
+  width: 98%;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 3px 2px #333333;
+  box-shadow: 1px 2px 2px 1px #33333342;
   color: black;
+  margin-bottom: 10px;
+
   .icon {
     //margin-right: 10px;
     line-height: normal;
+    display: flex;
+    height: 100%;
+    width: 10%;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    //background: #6aa0c7;
+    //color: darkorange;
+    border-radius: 10px 0 0 10px;
+
     &:hover {
       cursor: pointer;
     }
   }
+
   .todoItemCA {
-    width: 95%;
+    width: 90%;
     height: 100%;
     display: flex;
+    background: darkorange;
+    border-radius: 0 10px 10px 0;
   }
-  .todoItemContent{
+
+  .todoItemContent {
     width: 80%;
     height: 100%;
     display: flex;
     align-items: center;
     font-size: 16px;
     line-height: normal;
-    background: green;
-    border-radius: 0 10px 10px 0;
+    background: white;
+    border-radius: 0 20px 20px 0;
+
+    //.todoItemContentP{
+    //  margin-bottom: 0.2em;
+    //  white-space: nowrap;
+    //  text-overflow: ellipsis;
+    //  overflow: hidden;
+    //  contenteditable: true;
+    //}
   }
+
   .todoItemAction {
     width: 20%;
     height: 100%;
     display: flex;
     background: darkorange;
+    border-radius: 0 10px 10px 0;
+
+
+    line-height: normal;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    //background: #6aa0c7;
+    //color: darkorange;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
