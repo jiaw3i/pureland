@@ -15,21 +15,28 @@ export default function TodoItem(props: TodoItemProps) {
 
     const finishIcon = <SmileTwoTone twoToneColor={"#FF8C00FF"}/>
     const unFinishIcon = <SmileTwoTone rotate={180} twoToneColor={"#8fbc8f"}/>
-    const [item, setItem] = useState(props);
+    const [item, setItem] = useState<TodoItemProps>({
+        id: props.id,
+        title: props.title,
+        isFinish: props.isFinish,
+        isTop: props.isTop,
+    });
 
-    const finishOnClick = (item:TodoItemProps) => {
+    const finishOnClick = () => {
         console.log(item.isFinish)
         item.isFinish = !item.isFinish;
-        setItem(item);
+        let newItem = {...item};
+        setItem(newItem);
         // TODO: 更新数据库
     }
     const setEditableStr = (title:string) => {
         item.title = title;
-        setItem(item);
+        let newItem = {...item};
+        setItem(newItem);
     }
     return (
         <div className={todo.todoItemMain}>
-            <div className={todo.icon} onClick={():void=>{finishOnClick(props)}}>
+            <div className={todo.icon} onClick={():void=>{finishOnClick()}}>
                 {item.isFinish ? finishIcon : unFinishIcon}
             </div>
             <div className={todo.todoItemCA}>

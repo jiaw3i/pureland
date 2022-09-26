@@ -107,7 +107,7 @@ const TodoList = () => {
     return (
         <div className={todo.todoMain}>
             {
-                items.map((item) => <TodoItem {...item}/>)
+                items.map((item) => <TodoItem key={item.id} {...item}/>)
             }
 
             {/*<List*/}
