@@ -15,6 +15,7 @@
     "@types/react-dom": "^18.0.6",
     "@use-gesture/react": "^10.2.20",
     "antd": "^4.23.2",
+    "axios": "^0.27.2",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
@@ -75,6 +76,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start dev": "node scripts/start.js --env=development",
+    "start prod": "node scripts/start.js --env=production",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
