@@ -54,8 +54,8 @@ export default function PHeader() {
         </Popover>
     )
 
-
     const avatarImg = <Image src="https://joeschmoe.io/api/v1/random" />
+
 
     return (
         <div className={header.headerContent}>

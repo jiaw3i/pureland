@@ -1,11 +1,7 @@
-import {Avatar, Button, List, Skeleton} from 'antd';
 import React, {useEffect, useState} from 'react';
 import todo from './todo.less';
-import {SmileFilled, BorderOutlined} from '@ant-design/icons';
-import {isMainThread} from "worker_threads";
+import {TodoItemType} from "../../utils/types";
 import TodoItem from "./todoitem";
-import {TodoItemProps} from "./todoitem";
-
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
@@ -24,6 +20,7 @@ class Item {
     isDelete: boolean;
     isFinish: boolean;
     isTop: boolean;
+
 
     constructor(id: number, name: {}, picture: {}, title: string, desc: string, loading: boolean, createTime: string, updateTime: string, finishTime: string, deleteTime: string, isDelete: boolean, isFinish: boolean, isTop: boolean) {
         this.id = id;
@@ -48,30 +45,30 @@ const TodoList = () => {
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [list, setList] = useState<Array<Item>>([]);
-    const items: Array<TodoItemProps> = [
+    const items: Array<TodoItemType> = [
         {
             id: 1,
-            title: "今天写完大字作业",
-            isFinish: false,
-            isTop: false,
+            content: "今天写完大字作业",
+            status: 1,
+            createTime: "2022-01-01 00:00:00"
         },
         {
             id: 2,
-            title: "参加2点的会议",
-            isFinish: false,
-            isTop: false,
+            content: "参加2点的会议",
+            status: 1,
+            createTime: "2022-01-01 00:00:00"
         },
         {
             id: 3,
-            title: "完成履历卡片",
-            isFinish: false,
-            isTop: false,
+            content: "完成履历卡片",
+            status: 1,
+            createTime: "2022-01-01 00:00:00"
         },
         {
             id: 4,
-            title: "长文字测试长文字测试长文字测试长文字测试长文字测试长文字测试",
-            isFinish: false,
-            isTop: false,
+            content: "长文字测试长文字测试长文字测试长文字测试长文字测试长文字测试",
+            status: 1,
+            createTime: "2022-01-01 00:00:00"
         }
     ];
 
@@ -102,39 +99,11 @@ const TodoList = () => {
         Object.assign(list2, list);
         setList(list2);
     }
-
-    //     ) : null;
     return (
         <div className={todo.todoMain}>
             {
-                items.map((item) => <TodoItem key={item.id} {...item}/>)
+                items.map((item) => <TodoItem key={item.id} item={item} length={items.length}/>)
             }
-
-            {/*<List*/}
-            {/*    className="demo-loadmore-list"*/}
-            {/*    loading={initLoading}*/}
-            {/*    itemLayout="horizontal"*/}
-            {/*    dataSource={list}*/}
-
-            {/*    renderItem={(item: Item) => {*/}
-            {/*        return (*/}
-            {/*            <List.Item*/}
-            {/*                actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}*/}
-            {/*            >*/}
-            {/*                <Skeleton avatar title={false} loading={item.loading} active>*/}
-            {/*                    <List.Item.Meta*/}
-            {/*                        avatar={item.isFinish ?*/}
-            {/*                            <CheckSquareOutlined onClick={(): void => todoOnClick(item.id)}*/}
-            {/*                                                 className={todo.icon}/>*/}
-            {/*                            : <BorderOutlined onClick={(): void => todoOnClick(item.id)}*/}
-            {/*                                              className={todo.icon}/>}*/}
-            {/*                        description={item.desc}*/}
-            {/*                    />*/}
-            {/*                </Skeleton>*/}
-            {/*            </List.Item>*/}
-            {/*        )*/}
-            {/*    }}*/}
-            {/*/>*/}
         </div>
     );
 };

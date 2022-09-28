@@ -5,8 +5,8 @@ import {isServer} from './util'
 
 const request = (options: AxiosRequestConfig<any>) => {
     const { serverApi, baseUrl } = config
-    axios.defaults.baseURL = isServer ? `${serverApi}${baseUrl}` : baseUrl
-
+    axios.defaults.baseURL = `${baseUrl}`
+    console.log(serverApi, baseUrl)
     const { url, method = 'GET', params = {} } = options
     if (method === 'GET') {
         options.params = params
