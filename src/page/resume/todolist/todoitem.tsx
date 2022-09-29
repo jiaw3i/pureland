@@ -2,7 +2,7 @@ import todo from './todo.less'
 import {Typography } from 'antd'
 import {EditTwoTone ,SmileTwoTone} from '@ant-design/icons';
 import {useState} from "react";
-import {TodoItemType} from "../../utils/types";
+import {TodoItemType} from "../../../utils/types";
 
 const { Paragraph } = Typography;
 

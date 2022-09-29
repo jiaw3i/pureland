@@ -7,10 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Expenses from "./route/expenses";
 import Invoices from "./route/invoices";
-import Profile from "./page/profile/profile";
-import DraggableList from "./page/draggablelist/draggablelist";
-import {UseSpringDemoPage} from "./page/test/test";
-import PLContent from "./page/content/content";
+import Profile from "./page/resume/profile/profile";
+import DraggableList from "./page/resume/draggablelist/draggablelist";
+import {UseSpringDemoPage} from "./page/resume/test/test";
+import PLContent from "./page/resume/content/content";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
