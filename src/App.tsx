@@ -2,9 +2,9 @@ import React, {createContext, useContext, useEffect} from 'react';
 import './App.css';
 import {Layout} from "antd";
 import {Content, Footer} from "antd/es/layout/layout";
-import PSider from "./page/sider/sider";
-import PHeader from "./page/header/header";
-import PLContent from "./page/content/content";
+import PSider from "./page/resume/sider/sider";
+import PHeader from "./page/resume/header/header";
+import PLContent from "./page/resume/content/content";
 import {getUserInfo} from "./actions/resume";
 import {UserInfo} from "./utils/types";
 

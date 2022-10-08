@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import todo from './todo.less';
-import {TodoItemType} from "../../utils/types";
+import {TodoItemType} from "../../../utils/types";
 import TodoItem from "./todoitem";
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;

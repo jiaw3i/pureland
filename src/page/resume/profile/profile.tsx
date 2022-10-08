@@ -1,7 +1,7 @@
 import profile from './profile.less'
 import React from "react";
 import {Avatar} from "antd";
-import {AppContext} from "../../App";
+import {AppContext} from "../../../App";
 
 export default function Profile() {
     const {userInfo} = React.useContext(AppContext);
