@@ -1,10 +1,12 @@
 import todo from './todo.less'
-import {Typography } from 'antd'
-import {EditTwoTone ,SmileTwoTone} from '@ant-design/icons';
+import {Typography} from 'antd'
+import {DeleteOutlined, SmileTwoTone} from '@ant-design/icons';
 import {useState} from "react";
 import {TodoItemType} from "../../../utils/types";
+import request from "../../../utils/request";
+import {deleteTodo} from "../../../actions/resume";
 
-const { Paragraph } = Typography;
+const {Paragraph} = Typography;
 
 
 export default function TodoItem(props: {
@@ -23,20 +25,20 @@ export default function TodoItem(props: {
     });
 
     const finishOnClick = () => {
-        if (item.status===0){
+        if (item.status === 0) {
             item.status = 1;
-        }else {
+        } else {
             item.status = 0;
         }
         let newItem = {...item};
         setItem(newItem);
         // TODO: 更新数据库
     }
-    const isFinish = (status:number) => {
-        return status===1;
+    const isFinish = (status: number) => {
+        return status === 1;
 
     }
-    const setEditableStr = (content:string) => {
+    const setEditableStr = (content: string) => {
         item.content = content;
         let newItem = {...item};
         setItem(newItem);
@@ -44,19 +46,27 @@ export default function TodoItem(props: {
 
     return (
         <div className={todo.todoItemMain}>
-            <div className={todo.icon} onClick={():void=>{finishOnClick()}}>
+            <div className={todo.icon} onClick={(): void => {
+                finishOnClick()
+            }}>
                 {isFinish(item.status) ? finishIcon : unFinishIcon}
             </div>
             <div className={todo.todoItemCA}>
                 <div className={todo.todoItemContent}>
-                    <Paragraph editable={{ onChange: setEditableStr,triggerType:["text"],enterIcon:null }}>{item.content}</Paragraph>
+                    <Paragraph editable={{
+                        onChange: setEditableStr,
+                        triggerType: ["text"],
+                        enterIcon: null
+                    }}>{item.content}</Paragraph>
                 </div>
                 <div className={todo.todoItemAction}>
-                    <EditTwoTone />
+                    <DeleteOutlined onClick={() => {
+                        deleteTodo(item.id).then((res) => {
+                            props.length = props.length - 1;
+                        })
+                    }}/>
                 </div>
             </div>
         </div>
     )
-
-
 }

@@ -9,3 +9,23 @@ export function getUserInfo() {
         },
     })
 }
+
+export function deleteTodo(id:number){
+    return request({
+        url: '/deleteTodo',
+        method: 'GET',
+        params: {
+            todoId: id,
+        },
+    })
+}
+
+export function deleteUserTodo(id:number){
+    return request({
+        url: '/deleteUserTodo',
+        method: 'GET',
+        params: {
+            userId: id,
+        },
+    })
+}
