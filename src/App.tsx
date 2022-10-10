@@ -1,42 +1,61 @@
 import React, {createContext, useContext, useEffect} from 'react';
 import './App.css';
-import {Layout} from "antd";
-import {Content, Footer} from "antd/es/layout/layout";
-import PSider from "./page/resume/sider/sider";
-import PHeader from "./page/resume/header/header";
-import PLContent from "./page/resume/content/content";
 import {getUserInfo} from "./actions/resume";
 import {UserInfo} from "./utils/types";
+import {BrowserRouter, Navigate, Route, Routes, useLocation} from "react-router-dom";
+import Home from "./page/resume/home/home";
+import Login from "./page/resume/login/login";
 
-export const AppContext = createContext<{
+export const AuthContext = createContext<{
     userInfo: UserInfo,
-    setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>
+    setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>,
+    isLogin: boolean,
+    setIsLogin: React.Dispatch<React.SetStateAction<boolean>>,
 }>({} as any);
+
+function useAuth() {
+    return React.useContext(AuthContext);
+}
+
+function RequireAuth({children}: { children: JSX.Element }) {
+    let auth = useAuth();
+    let location = useLocation();
+
+    if (!auth.isLogin) {
+        // 重定向至login页面，但是保存用户试图访问的location，这样我们可以把登陆后的用户重定向至那个页面
+        return <Navigate to="/login" state={{from: location}} replace/>;
+    }
+    return children;
+}
 
 function App() {
     const [userInfo, setUserInfo] = React.useState<UserInfo>({} as UserInfo);
+    const [isLogin, setIsLogin] = React.useState<boolean>(true);
+
     useEffect(() => {
-        getUserInfo().then((res) => {
-            setUserInfo(res.data);
-        })
-    },[]);
+        if (localStorage.getItem("AuthToken") === null) {
+            setIsLogin(false);
+            // !isLogin && navigate("/login");
+        } else {
+            getUserInfo().then((res) => {
+                setUserInfo(res.data);
+            })
+        }
+    }, []);
 
     return (
-        <AppContext.Provider value={{userInfo,setUserInfo}}>
-
-            <div className="pl-background">
-                <Layout style={{
-                    minHeight: '80vh',
-                }}>
-                    <PSider/>
-                    <Layout>
-                        <PHeader/>
-                        <PLContent/>
-                        <Footer>Footer</Footer>
-                    </Layout>
-                </Layout>
-            </div>
-        </AppContext.Provider>
+        <AuthContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin}}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={
+                        <RequireAuth>
+                            <Home/>
+                        </RequireAuth>
+                    }/>
+                    <Route path="/login" element={<Login/>}/>
+                </Routes>
+            </BrowserRouter>,
+        </AuthContext.Provider>
     );
 }
 

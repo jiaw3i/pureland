@@ -23,7 +23,7 @@ export default function Experience(props: any) {
                 <Timeline className={experience.plExperienceTimeline}>
                     {
                         items.map((item) =>
-                            <Timeline.Item className={experience.plExperienceTimelineItem} dot={<SmileTwoTone twoToneColor={"#FF8C00FF"}/>}>
+                            <Timeline.Item key={item.id} className={experience.plExperienceTimelineItem} dot={<SmileTwoTone twoToneColor={"#FF8C00FF"}/>}>
                                 <div className={experience.plExperienceTimelineItemHeader}>
                                     <p className={experience.plExperienceTimelineItemDate}>{item.startDate} 至 {item.endDate}</p>
                                     <p>{item.company}</p>
@@ -31,12 +31,9 @@ export default function Experience(props: any) {
                                 <div className={experience.plExperienceTimelineItemDesc}>
                                     <p>{item.description}</p>
                                 </div>
-
-
                             </Timeline.Item>
                         )
                     }
-
                 </Timeline>
             </div>
 

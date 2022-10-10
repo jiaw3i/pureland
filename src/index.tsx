@@ -5,26 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Expenses from "./route/expenses";
-import Invoices from "./route/invoices";
-import Profile from "./page/resume/profile/profile";
 import Login from "./page/resume/login/login";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App/>}>
-                <Route path="expenses" element={<Expenses/>}/>
-                <Route path="invoices" element={<Invoices/>}/>
-                <Route path="profile" element={<Profile/>}/>
-            </Route>
-            <Route path="login" element={<Login/>}/>
-        </Routes>
-
-    </BrowserRouter>,
+    <App/>
 );
 
 // If you want to start measuring performance in your app, pass a function

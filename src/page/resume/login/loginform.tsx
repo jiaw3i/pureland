@@ -1,9 +1,17 @@
 import {Button, Checkbox, Col, Form, Input, notification, Row} from "antd";
-import React from "react";
-import {login} from "../../../actions/resume";
+import React, {useContext} from "react";
+import {getUserInfo, login} from "../../../actions/resume";
 import {NotificationPlacement} from "antd/es/notification";
+import {useLocation, useNavigate} from "react-router-dom";
+import {AuthContext} from "../../../App";
 
 export default function LoginForm(props: { changeForm: Function }) {
+    const {isLogin,setIsLogin,setUserInfo} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || '/';
+
     const openNotification = (placement: NotificationPlacement, message: string) => {
         notification.config({duration: 1.5});
         notification.error({
@@ -15,6 +23,11 @@ export default function LoginForm(props: { changeForm: Function }) {
         login(values.username, values.password).then((res) => {
             if (res.success) {
                 localStorage.setItem("AuthToken", res.data);
+                setIsLogin(true);
+                getUserInfo().then((res) => {
+                    setUserInfo(res.data);
+                    navigate(from, { replace: true });
+                })
             } else {
                 openNotification('top', res.message);
             }

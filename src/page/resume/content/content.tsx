@@ -93,7 +93,7 @@ export default function PLContent() {
             </div>
             <div className={content.rightContent}>
                 <div className={content.experience}>
-                    <Experience data={experiences}/>
+                    <Experience key={experiences} data={experiences}/>
                 </div>
             </div>
 
