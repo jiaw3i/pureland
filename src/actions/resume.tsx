@@ -1,16 +1,22 @@
 import request from "../utils/request";
+import {UserInfo} from "../utils/types";
 
 export function getUserInfo() {
     return request({
         url: '/pluser/getUserInfo',
         method: 'GET',
-        params: {
-            id: 1,
-        },
     })
 }
 
-export function deleteTodo(id:number){
+export function updateUserInfo(userInfo: UserInfo) {
+    return request({
+        url: '/pluser/updateUserInfo',
+        method: 'POST',
+        params: {...userInfo}
+    })
+}
+
+export function deleteTodo(id: number) {
     return request({
         url: '/pluser/todo/deleteTodo',
         method: 'GET',
@@ -20,7 +26,7 @@ export function deleteTodo(id:number){
     })
 }
 
-export function deleteUserTodo(id:number){
+export function deleteUserAllTodo(id: number) {
     return request({
         url: '/pluser/deleteUserTodo',
         method: 'GET',
@@ -29,7 +35,8 @@ export function deleteUserTodo(id:number){
         },
     })
 }
-export function login(username:string,password:string){
+
+export function login(username: string, password: string) {
     return request({
         url: '/system/login',
         method: 'POST',

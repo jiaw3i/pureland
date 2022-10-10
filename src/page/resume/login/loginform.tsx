@@ -1,4 +1,4 @@
-import {Button, Checkbox, Col, Form, Input, notification, Row} from "antd";
+import {Button, Form, Input, notification} from "antd";
 import React, {useContext} from "react";
 import {getUserInfo, login} from "../../../actions/resume";
 import {NotificationPlacement} from "antd/es/notification";
