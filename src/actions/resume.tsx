@@ -29,3 +29,13 @@ export function deleteUserTodo(id:number){
         },
     })
 }
+export function login(username:string,password:string){
+    return request({
+        url: '/login',
+        method: 'POST',
+        params: {
+            username: username,
+            credit: password,
+        },
+    })
+}

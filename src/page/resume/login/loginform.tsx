@@ -1,12 +1,32 @@
-import {Button, Checkbox, Col, Form, Input, Row} from "antd";
+import {Button, Checkbox, Col, Form, Input, notification, Row} from "antd";
+import React from "react";
+import {login} from "../../../actions/resume";
+import {NotificationPlacement} from "antd/es/notification";
 
-export default function LoginForm() {
+export default function LoginForm(props: { changeForm: Function }) {
+    const openNotification = (placement: NotificationPlacement, message: string) => {
+        notification.config({duration: 1.5});
+        notification.error({
+            message: message,
+            placement,
+        });
+    };
+    const onFinish = (values: { username: string, password: string }) => {
+        login(values.username, values.password).then((res) => {
+            if (res.success) {
+                localStorage.setItem("AuthToken", res.data);
+            } else {
+                openNotification('top', res.message);
+            }
+        });
+    }
+
     return (
         <Form
             name="normal_login"
             className="login-form"
             initialValues={{remember: true}}
-            // onFinish={onFinish}
+            onFinish={onFinish}
         >
             <Form.Item
                 name="username"
@@ -24,23 +44,23 @@ export default function LoginForm() {
                 <Input
                     bordered={false}
                     type="password"
-                    placeholder="请设置密码"
+                    placeholder="password"
                 />
             </Form.Item>
 
 
             <Form.Item>
-                没有帐号，<a href="#">点击注册</a>
+                没有帐号，<a onClick={() => props.changeForm()}>点击注册</a>
             </Form.Item>
 
             <Form.Item>
                 <Button type="primary" htmlType="submit" block style={{height: '56PX', borderRadius: '12PX'}}>
-                    去注册
+                    登录
                 </Button>
             </Form.Item>
-            <Form.Item name="" valuePropName="checked" style={{textAlign: 'left'}}>
-                <Checkbox style={{color: '#CCCCCC'}}>我已阅读并同意《<a>用户服务协议</a>》</Checkbox>
+            <Form.Item valuePropName="checked" style={{textAlign: 'left'}}>
+                <p style={{color: '#CCCCCC'}}>注册和登录即代表已阅读并同意《<a>用户服务协议</a>》</p>
             </Form.Item>
         </Form>
-    )
+    );
 }

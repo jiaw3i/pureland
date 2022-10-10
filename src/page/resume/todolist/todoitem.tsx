@@ -3,7 +3,6 @@ import {Typography} from 'antd'
 import {DeleteOutlined, SmileTwoTone} from '@ant-design/icons';
 import {useState} from "react";
 import {TodoItemType} from "../../../utils/types";
-import request from "../../../utils/request";
 import {deleteTodo} from "../../../actions/resume";
 
 const {Paragraph} = Typography;

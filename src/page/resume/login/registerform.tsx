@@ -1,6 +1,7 @@
 import {Button, Checkbox, Col, Form, Input, Row} from "antd";
 
-export default function RegisterForm() {
+export default function RegisterForm(props:  { changeForm: Function }) {
+
     return (
         <Form
             name="normal_login"
@@ -66,7 +67,7 @@ export default function RegisterForm() {
             </Form.Item>
 
             <Form.Item>
-                已有帐号，<a href="#">点击登录</a>
+                已有帐号，<a onClick={()=>{props.changeForm()}}>点击登录</a>
             </Form.Item>
 
             <Form.Item>
@@ -78,5 +79,5 @@ export default function RegisterForm() {
                 <Checkbox style={{color: '#CCCCCC'}}>我已阅读并同意《<a>用户服务协议</a>》</Checkbox>
             </Form.Item>
         </Form>
-    )
+    );
 }
