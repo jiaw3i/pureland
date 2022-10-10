@@ -8,9 +8,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Expenses from "./route/expenses";
 import Invoices from "./route/invoices";
 import Profile from "./page/resume/profile/profile";
-import DraggableList from "./page/resume/draggablelist/draggablelist";
-import {UseSpringDemoPage} from "./page/resume/test/test";
-import PLContent from "./page/resume/content/content";
+import Login from "./page/resume/login/login";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -23,9 +21,7 @@ root.render(
                 <Route path="invoices" element={<Invoices/>}/>
                 <Route path="profile" element={<Profile/>}/>
             </Route>
-            <Route path="draggablelist" element={<DraggableList/>}/>
-            <Route path="UseSpringDemoPage" element={<UseSpringDemoPage/>}/>
-            <Route path="content" element={<PLContent/>}/>
+            <Route path="login" element={<Login/>}/>
         </Routes>
 
     </BrowserRouter>,
