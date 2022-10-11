@@ -76,7 +76,7 @@ export default function RegisterForm(props: { changeForm: Function }) {
                 <Input allowClear placeholder="phone" bordered={false}/>
             </Form.Item>
             <Form.Item
-                name="captcha"
+                name="code"
                 rules={[{required: true, message: '请输入验证码!'}, {len: 6, message: '验证码长度为6位'}]}
                 style={{borderBottom: '1px solid #DCDCDC'}}
             >

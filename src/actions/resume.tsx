@@ -1,5 +1,5 @@
 import request from "../utils/request";
-import {ExperienceItemType, UserInfo} from "../utils/types";
+import {ExperienceItemType, TodoItemType, UserInfo} from "../utils/types";
 
 export function getUserInfo() {
     return request({
@@ -16,13 +16,38 @@ export function updateUserInfo(userInfo: UserInfo) {
     })
 }
 
+export function getTodoList() {
+    return request({
+        url: '/pluser/todo/list',
+        method: 'GET',
+    })
+}
+
 export function deleteTodo(id: number) {
     return request({
-        url: '/pluser/todo/deleteTodo',
+        url: '/pluser/todo/delete',
         method: 'GET',
         params: {
             todoId: id,
         },
+    })
+}
+
+export function addTodoItem(content: string) {
+    return request({
+        url: '/pluser/todo/add',
+        method: 'POST',
+        params: {
+            content: content,
+        },
+    })
+}
+
+export function updateTodoItem(todoItem: TodoItemType) {
+    return request({
+        url: '/pluser/todo/update',
+        method: 'POST',
+        params: {...todoItem},
     })
 }
 

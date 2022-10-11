@@ -13,6 +13,7 @@ export type UserInfo = {
 
 export type TodoItemType = {
     id: number;
+    userId: number;
     content: string;
     status: number;
     createTime: string;

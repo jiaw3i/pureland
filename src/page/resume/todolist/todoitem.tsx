@@ -3,14 +3,15 @@ import {Typography} from 'antd'
 import {DeleteOutlined, SmileTwoTone} from '@ant-design/icons';
 import {useState} from "react";
 import {TodoItemType} from "../../../utils/types";
-import {deleteTodo} from "../../../actions/resume";
+import {deleteTodo, getTodoList, updateTodoItem} from "../../../actions/resume";
 
 const {Paragraph} = Typography;
 
 
 export default function TodoItem(props: {
     item: TodoItemType,
-    length: number
+    length: number,
+    setTodos: Function,
 }) {
 
     const finishIcon = <SmileTwoTone twoToneColor={"#FF8C00FF"}/>
@@ -18,6 +19,7 @@ export default function TodoItem(props: {
 
     const [item, setItem] = useState<TodoItemType>({
         id: props.item.id,
+        userId: props.item.userId,
         content: props.item.content,
         status: props.item.status,
         createTime: props.item.createTime,
@@ -31,6 +33,10 @@ export default function TodoItem(props: {
         }
         let newItem = {...item};
         setItem(newItem);
+
+        updateTodoItem(newItem).then((res) => {
+            console.log("todoItem#finishOnClick ", res);
+        });
         // TODO: 更新数据库
     }
     const isFinish = (status: number) => {
@@ -41,6 +47,17 @@ export default function TodoItem(props: {
         item.content = content;
         let newItem = {...item};
         setItem(newItem);
+    }
+
+    const deleteOnClick = () => {
+        deleteTodo(item.id).then((res) => {
+            console.log("todoItem#deleteOnClick ", res);
+            if (res.success) {
+                getTodoList().then((res) => {
+                    props.setTodos(res.data);
+                });
+            }
+        });
     }
 
     return (
@@ -59,11 +76,7 @@ export default function TodoItem(props: {
                     }}>{item.content}</Paragraph>
                 </div>
                 <div className={todo.todoItemAction}>
-                    <DeleteOutlined onClick={() => {
-                        deleteTodo(item.id).then((res) => {
-                            props.length = props.length - 1;
-                        })
-                    }}/>
+                    <DeleteOutlined onClick={deleteOnClick}/>
                 </div>
             </div>
         </div>
