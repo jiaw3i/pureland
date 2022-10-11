@@ -1,13 +1,14 @@
 import {Button, Checkbox, Col, Form, Input, Row} from "antd";
 import {useForm} from "antd/es/form/Form";
-import {smsCode} from "../../../actions/resume";
+import {register, smsCode} from "../../../actions/resume";
 import {openNotification} from "../../../utils/util";
 import {useState} from "react";
+import {UserInfo} from "../../../utils/types";
 
-export default function RegisterForm(props:  { changeForm: Function }) {
+export default function RegisterForm(props: { changeForm: Function }) {
 
     const [registerForm] = Form.useForm()
-    const [codeBtnDisabled, setCodeBtnDisabled] = useState(true)
+    const [codeBtnDisabled, setCodeBtnDisabled] = useState(false);
     const sendCode = () => {
         smsCode(registerForm.getFieldValue('phone')).then((res) => {
             if (res.success) {
@@ -15,17 +16,33 @@ export default function RegisterForm(props:  { changeForm: Function }) {
                 setCodeBtnDisabled(false);
                 setTimeout(() => {
                     setCodeBtnDisabled(true);
-                },60000)
+                }, 60000)
             } else {
                 openNotification('top', res.message);
             }
         })
     }
+    const onFinish = (values: any) => {
+        console.log('Received values of form: ', values);
+        if (values.password !== values.rePassword) {
+            openNotification('top', '两次密码不一致');
+            return;
+        }
+        register(values.username, values.password, values.phone).then((res) => {
+            if (res.success) {
+                openNotification('top', '注册成功');
+                props.changeForm('login');
+            } else {
+                openNotification('top', res.message);
+            }
+        })
+    };
     return (
         <Form
             name="resiterForm"
             form={registerForm}
             className="login-form"
+            onFinish={onFinish}
             initialValues={{remember: true}}
             // onFinish={onFinish}
         >
@@ -38,32 +55,35 @@ export default function RegisterForm(props:  { changeForm: Function }) {
             </Form.Item>
             <Form.Item
                 name="phone"
-                rules={[{required: true, message: '请输入手机号!'},{pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号'}]}
+                rules={[{required: true, message: '请输入手机号!'}, {
+                    pattern: /^1[3456789]\d{9}$/,
+                    message: '请输入正确的手机号'
+                }]}
                 style={{borderBottom: '1px solid #DCDCDC'}}
             >
                 <Input allowClear placeholder="phone" bordered={false}/>
             </Form.Item>
             <Form.Item
                 name="captcha"
-                rules={[{required: true, message: '请输入验证码!'},{len: 6, message: '验证码长度为6位'}]}
+                rules={[{required: true, message: '请输入验证码!'}, {len: 6, message: '验证码长度为6位'}]}
                 style={{borderBottom: '1px solid #DCDCDC'}}
             >
                 <Row>
                     <Col span={18}>
                         <Input allowClear
-                            bordered={false}
-                            type="password"
-                            placeholder="code"
+                               bordered={false}
+                               placeholder="code"
                         />
                     </Col>
                     <Col span={6} style={{float: 'right'}}>
-                        <Button disabled={codeBtnDisabled} type="link" onClick={()=>smsCode(registerForm.getFieldValue("phone"))} style={{color: '#151830', fontWeight: 'bold'}}>发送验证码</Button>
+                        <Button disabled={codeBtnDisabled} type="link" onClick={() => sendCode()}
+                                style={{color: '#151830', fontWeight: 'bold'}}>发送验证码</Button>
                     </Col>
                 </Row>
             </Form.Item>
             <Form.Item
                 name="password"
-                rules={[{required: true, message: '请设置密码!'},{min: 6, message: '密码长度不能小于6位'}]}
+                rules={[{required: true, message: '请设置密码!'}, {min: 6, message: '密码长度不能小于6位'}]}
                 style={{borderBottom: '1px solid #DCDCDC'}}
             >
                 <Input.Password
@@ -75,7 +95,7 @@ export default function RegisterForm(props:  { changeForm: Function }) {
             </Form.Item>
             <Form.Item
                 name="rePassword"
-                rules={[{required: true, message: '请重复密码!'},{min: 6, message: '密码长度不能小于6位'}]}
+                rules={[{required: true, message: '请重复密码!'}, {min: 6, message: '密码长度不能小于6位'}]}
                 style={{borderBottom: '1px solid #DCDCDC'}}
             >
                 <Input.Password
@@ -87,7 +107,9 @@ export default function RegisterForm(props:  { changeForm: Function }) {
             </Form.Item>
 
             <Form.Item>
-                已有帐号，<a onClick={()=>{props.changeForm()}}>点击登录</a>
+                已有帐号，<a onClick={() => {
+                props.changeForm()
+            }}>点击登录</a>
             </Form.Item>
 
             <Form.Item>
