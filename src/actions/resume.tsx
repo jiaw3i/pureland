@@ -69,6 +69,17 @@ export function smsCode(phone: string) {
     })
 }
 
+export function verifySmsCode(phone: string, code: string) {
+    return request({
+        url: '/system/verifySmsCode',
+        method: 'GET',
+        params: {
+            phone: phone,
+            code: code,
+        }
+    })
+}
+
 export function getPlExperiences() {
     return request({
         url: '/pluser/experience/list',

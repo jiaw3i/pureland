@@ -1,26 +1,30 @@
 import {Button, Checkbox, Col, Form, Input, Row} from "antd";
 import {useForm} from "antd/es/form/Form";
-import {register, smsCode} from "../../../actions/resume";
+import {register, smsCode, verifySmsCode} from "../../../actions/resume";
 import {openNotification} from "../../../utils/util";
 import {useState} from "react";
-import {UserInfo} from "../../../utils/types";
+import login from "./login.less"
+import Countdown from "antd/es/statistic/Countdown";
 
 export default function RegisterForm(props: { changeForm: Function }) {
 
     const [registerForm] = Form.useForm()
     const [codeBtnDisabled, setCodeBtnDisabled] = useState(false);
+    const [countdown, setCountdown] = useState(0);
     const sendCode = () => {
         smsCode(registerForm.getFieldValue('phone')).then((res) => {
             if (res.success) {
                 openNotification('top', '验证码已发送');
-                setCodeBtnDisabled(false);
+                setCountdown(Date.now() + 60000); // 60s
+                setCodeBtnDisabled(true);
+                console.log(codeBtnDisabled);
                 setTimeout(() => {
-                    setCodeBtnDisabled(true);
+                    setCodeBtnDisabled(false);
                 }, 60000)
             } else {
                 openNotification('top', res.message);
             }
-        })
+        });
     }
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
@@ -28,22 +32,30 @@ export default function RegisterForm(props: { changeForm: Function }) {
             openNotification('top', '两次密码不一致');
             return;
         }
-        register(values.username, values.password, values.phone).then((res) => {
+        verifySmsCode(values.phone, values.code).then((res) => {
             if (res.success) {
-                openNotification('top', '注册成功');
-                props.changeForm('login');
+                register(values.username, values.password, values.phone).then((res) => {
+                    if (res.data) {
+                        openNotification('top', '注册成功');
+                        props.changeForm('login');
+                    } else {
+                        openNotification('top', res.message);
+                    }
+                })
             } else {
-                openNotification('top', res.message);
+                openNotification('top', "验证码校验失败");
             }
-        })
+        });
+
     };
     return (
         <Form
             name="resiterForm"
             form={registerForm}
-            className="login-form"
+            className={login.registerForm}
             onFinish={onFinish}
             initialValues={{remember: true}}
+            validateTrigger={'onBlur'}
             // onFinish={onFinish}
         >
             <Form.Item
@@ -75,9 +87,19 @@ export default function RegisterForm(props: { changeForm: Function }) {
                                placeholder="code"
                         />
                     </Col>
-                    <Col span={6} style={{float: 'right'}}>
+                    <Col span={6}>
+                        {/*<div className={login.codeBtnG}>*/}
+                        {
+                            codeBtnDisabled && <Countdown value={countdown} format="(mm:ss)"
+                                                          onFinish={() => setCodeBtnDisabled(false)}/>
+                        }
                         <Button disabled={codeBtnDisabled} type="link" onClick={() => sendCode()}
-                                style={{color: '#151830', fontWeight: 'bold'}}>发送验证码</Button>
+                                style={{fontWeight: 'bold'}}>
+                            发送验证码
+                        </Button>
+                        {/*</div>*/}
+
+
                     </Col>
                 </Row>
             </Form.Item>

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {ExperienceItemType} from "../../../utils/types";
-import {Button, Space, Table} from "antd";
+import {Button, Space, Table, Tooltip} from "antd";
 import {deletePlExperience, getPlExperiences} from "../../../actions/resume";
 import Column from "antd/es/table/Column";
 import {openNotification} from "../../../utils/util";
 import {PlExperienceFormDrawer} from "../drawers/drawers";
+import manage from "./manage.less";
 
 export default function ExperienceManage(props: {
     showDrawer: Function,
@@ -36,7 +37,7 @@ export default function ExperienceManage(props: {
     }
     return (
         <div>
-            <div>
+            <div className={manage.experienceManageAdd}>
                 <Button type={"primary"} onClick={() => showExpDrawer("experience", {
                     startDate: new Date(),
                     endDate: new Date(),
@@ -45,7 +46,11 @@ export default function ExperienceManage(props: {
             <Table dataSource={experiences}>
                 <Column title={"公司"} dataIndex={"unit"}/>
                 <Column title={"岗位"} dataIndex={"job"}/>
-                <Column title={"工作内容"} dataIndex={"description"}/>
+                <Column width={500} ellipsis={true} render={(value, record, index) =>
+                    (<Tooltip placement="topLeft" title={value}>
+                        {value}
+                    </Tooltip>)
+                } title={"工作内容"} dataIndex={"description"}/>
                 <Column title={"开始时间"} dataIndex={"startDate"}/>
                 <Column title={"结束时间"} dataIndex={"endDate"}/>
                 <Column
