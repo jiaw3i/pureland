@@ -1,10 +1,30 @@
 import {Button, Checkbox, Col, Form, Input, Row} from "antd";
+import {useForm} from "antd/es/form/Form";
+import {smsCode} from "../../../actions/resume";
+import {openNotification} from "../../../utils/util";
+import {useState} from "react";
 
 export default function RegisterForm(props:  { changeForm: Function }) {
 
+    const [registerForm] = Form.useForm()
+    const [codeBtnDisabled, setCodeBtnDisabled] = useState(true)
+    const sendCode = () => {
+        smsCode(registerForm.getFieldValue('phone')).then((res) => {
+            if (res.success) {
+                openNotification('top', '验证码已发送');
+                setCodeBtnDisabled(false);
+                setTimeout(() => {
+                    setCodeBtnDisabled(true);
+                },60000)
+            } else {
+                openNotification('top', res.message);
+            }
+        })
+    }
     return (
         <Form
-            name="normal_login"
+            name="resiterForm"
+            form={registerForm}
             className="login-form"
             initialValues={{remember: true}}
             // onFinish={onFinish}
@@ -37,7 +57,7 @@ export default function RegisterForm(props:  { changeForm: Function }) {
                         />
                     </Col>
                     <Col span={6} style={{float: 'right'}}>
-                        <Button type="link" style={{color: '#151830', fontWeight: 'bold'}}>发送验证码</Button>
+                        <Button disabled={codeBtnDisabled} type="link" onClick={()=>smsCode(registerForm.getFieldValue("phone"))} style={{color: '#151830', fontWeight: 'bold'}}>发送验证码</Button>
                     </Col>
                 </Row>
             </Form.Item>

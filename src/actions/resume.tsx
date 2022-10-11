@@ -1,5 +1,5 @@
 import request from "../utils/request";
-import {UserInfo} from "../utils/types";
+import {ExperienceItemType, UserInfo} from "../utils/types";
 
 export function getUserInfo() {
     return request({
@@ -43,6 +43,59 @@ export function login(username: string, password: string) {
         params: {
             username: username,
             credit: password,
+        },
+    })
+}
+
+export function register(username: string, password: string,phone: string) {
+    return request({
+        url: '/system/register',
+        method: 'POST',
+        params: {
+            username: username,
+            credit: password,
+            phone: phone,
+        },
+    })
+}
+
+export function smsCode(phone: string) {
+    return request({
+        url: '/system/smscode',
+        method: 'GET',
+        params: {
+            phone: phone,
+        }
+    })
+}
+
+export function getPlExperiences() {
+    return request({
+        url: '/pluser/experience/list',
+        method: 'GET',
+    })
+}
+
+export function addPlExperience(experience: ExperienceItemType) {
+    return request({
+        url: '/pluser/experience/add',
+        method: 'POST',
+        params: {...experience}
+    })
+}
+export function updatePlExperience(experience: ExperienceItemType) {
+    return request({
+        url: '/pluser/experience/update',
+        method: 'POST',
+        params: {...experience}
+    })
+}
+export function deletePlExperience(id: number) {
+    return request({
+        url: '/pluser/experience/delete',
+        method: 'GET',
+        params: {
+            experienceId: id,
         },
     })
 }

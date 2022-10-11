@@ -5,7 +5,9 @@ import './content.less'
 import TodoList from "../todolist/todo";
 import Profile from "../profile/profile";
 import Experience from "./experience";
-import {ExperienceItem} from "./experience";
+import {useEffect, useState} from "react";
+import {getPlExperiences} from "../../../actions/resume";
+import {ExperienceItemType} from "../../../utils/types";
 
 export default function PLContent() {
     const transition = useTransition(true, {
@@ -16,53 +18,13 @@ export default function PLContent() {
         from: {opacity: 0, position: 'relative', top: '400px', left: '-50px'},
         enter: {opacity: 1, position: 'relative', top: '0', left: '0'},
     });
-    const experiences: Array<ExperienceItem> = [
-        {
-            id: "1",
-            title: "实习",
-            company: "上海蓝鲸信息科技有限公司",
-            startDate: "2020-07-01",
-            endDate: "2020-08-31",
-            description: "主要负责公司内部系统的开发，包括前端和后端，使用的技术栈为React+SpringBoot+MySQL",
-            job: "前端开发工程师",
-        },
-        {
-            id: "2",
-            title: "实习",
-            company: "上海蓝鲸信息科技有限公司",
-            startDate: "2020-09-01",
-            endDate: "2020-09-30",
-            description: "主要负责公司内部系统的开发，包括前端和后端，使用的技术栈为React+SpringBoot+MySQL",
-            job: "前端开发工程师",
-        },
-        {
-            id: "3",
-            title: "实习",
-            company: "上海蓝鲸信息科技有限公司",
-            startDate: "2020-10-01",
-            endDate: "2020-11-30",
-            description: "主要负责公司内部系统的开发，包括前端和后端，使用的技术栈为React+SpringBoot+MySQL",
-            job: "前端开发工程师",
-        },
-        {
-            id: "4",
-            title: "实习",
-            company: "上海蓝鲸信息科技有限公司",
-            startDate: "2020-10-01",
-            endDate: "2020-11-30",
-            description: "主要负责公司内部系统的开发，包括前端和后端，使用的技术栈为React+SpringBoot+MySQL",
-            job: "前端开发工程师",
-        },
-        {
-            id: "5",
-            title: "实习",
-            company: "上海蓝鲸信息科技有限公司",
-            startDate: "2020-10-01",
-            endDate: "2020-11-30",
-            description: "主要负责公司内部系统的开发，包括前端和后端，使用的技术栈为React+SpringBoot+MySQL",
-            job: "前端开发工程师",
-        },
-    ]
+    const [experiences, setExperiences] = useState<Array<ExperienceItemType>>([]);
+
+    useEffect(() => {
+        getPlExperiences().then((res) => {
+            setExperiences(res.data);
+        });
+    }, []);
     return (
         <Content className={content.antLayoutContent}>
             <div className={content.contentHead}>
@@ -93,7 +55,7 @@ export default function PLContent() {
             </div>
             <div className={content.rightContent}>
                 <div className={content.experience}>
-                    <Experience key={experiences} data={experiences}/>
+                    <Experience key={null} data={experiences}/>
                 </div>
             </div>
 

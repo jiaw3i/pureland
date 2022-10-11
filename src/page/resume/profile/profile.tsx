@@ -53,7 +53,12 @@ export default function Profile() {
                 layout={"vertical"}
                 name={"useForm"}
                 onFinish={onFinish}
-                initialValues={{username: userInfo.username, college: userInfo.college, major: userInfo.major,skill:userInfo.skill}}
+                initialValues={{
+                    username: userInfo?.username,
+                    college: userInfo?.college,
+                    major: userInfo?.major,
+                    skill: userInfo?.skill
+                }}
 
             >
                 <Form.Item label={"username"} name={"username"}>

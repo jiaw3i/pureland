@@ -18,3 +18,13 @@ export type TodoItemType = {
     createTime: string;
     // isTop: boolean;
 }
+
+export type ExperienceItemType = {
+    id: number;
+    userId: number;
+    unit: string;
+    job: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+}

@@ -4,6 +4,7 @@ import {getUserInfo, login} from "../../../actions/resume";
 import {NotificationPlacement} from "antd/es/notification";
 import {useLocation, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../../App";
+import {openNotification} from "../../../utils/util";
 
 export default function LoginForm(props: { changeForm: Function }) {
     const {isLogin,setIsLogin,setUserInfo} = useContext(AuthContext);
@@ -12,13 +13,7 @@ export default function LoginForm(props: { changeForm: Function }) {
     const location = useLocation();
     let from = location.state?.from?.pathname || '/';
 
-    const openNotification = (placement: NotificationPlacement, message: string) => {
-        notification.config({duration: 1.5});
-        notification.error({
-            message: message,
-            placement,
-        });
-    };
+
     const onFinish = (values: { username: string, password: string }) => {
         login(values.username, values.password).then((res) => {
             if (res.success) {

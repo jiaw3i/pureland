@@ -1,3 +1,6 @@
+import {NotificationPlacement} from "antd/es/notification";
+import {notification} from "antd";
+
 export const isServer = typeof window === 'undefined'
 
 export const findByValue = (array: any[], key: string | number, value: any, { childKey = 'children' } = {}) => {
@@ -11,3 +14,11 @@ export const findByValue = (array: any[], key: string | number, value: any, { ch
     })
     return obj
 }
+
+export const openNotification = (placement: NotificationPlacement, message: string) => {
+    notification.config({duration: 1.5});
+    notification.error({
+        message: message,
+        placement,
+    });
+};

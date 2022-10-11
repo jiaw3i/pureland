@@ -6,9 +6,15 @@ import PSider from "../sider/sider";
 import PHeader from "../header/header";
 import PLContent from "../content/content";
 
-function Home() {
+export const ContentContext = createContext<{
+    content: JSX.Element,
+    setContent: React.Dispatch<React.SetStateAction<JSX.Element>>,
+}>({} as any);
 
+function Home() {
+    const [content, setContent] = React.useState<JSX.Element>(<PLContent/>);
     return (
+        <ContentContext.Provider value={{content, setContent}}>
             <div className="pl-background">
                 <Layout style={{
                     minHeight: '80vh',
@@ -16,11 +22,12 @@ function Home() {
                     <PSider/>
                     <Layout>
                         <PHeader/>
-                        <PLContent/>
+                        {content}
                         <Footer>Footer</Footer>
                     </Layout>
                 </Layout>
             </div>
+        </ContentContext.Provider>
     );
 }
 
