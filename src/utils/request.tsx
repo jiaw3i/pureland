@@ -3,10 +3,15 @@ import config from '../config'
 import {unset} from 'lodash'
 
 const request = (options: AxiosRequestConfig<any>) => {
-    const {serverApi, baseUrl} = config
-    axios.defaults.baseURL = `${baseUrl}`
-    console.log(serverApi, baseUrl)
+
+    if (!options.baseURL) {
+        const {baseUrl} = config
+        axios.defaults.baseURL = `${baseUrl}`
+    } else {
+        axios.defaults.baseURL = options.baseURL;
+    }
     const {url, method = 'GET', params = {}} = options
+    console.log(url, axios.defaults.baseURL)
     if (method === 'GET') {
         options.params = params
     } else {

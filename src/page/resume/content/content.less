@@ -1,6 +1,6 @@
 
 :global {
-  .ant-layout-content{
+  .ant-layout-content {
     min-height: 120px;
     color: #fff;
     line-height: 120px;
@@ -12,14 +12,14 @@
 }
 
 
-.skillCard{
+.skillCard {
   width: 20%;
   height: 20%;
   background: #107bcb;
 }
 
 .imageMessage {
-  background: url("../../../static/kohl-3722517_960_720.webp") no-repeat;
+  background: url('https://tuapi.eees.cc/api.php?category={dongman,fengjing}&type=302') no-repeat;
   background-size: cover;
   width: 25vw;
   height: 150px;
@@ -27,52 +27,72 @@
   box-shadow: 0 4px 10px 3px #33333342;
   line-height: normal;
   display: flex;
+  color: darkseagreen;
   align-items: flex-start;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   padding: 0 10px;
-  p{
+
+  p {
     margin-bottom: 0;
   }
-  .contentHeadTitle{
+
+  .contentHeadTitle {
     font-size: x-large;
+    font-family: cursive;
+    font-weight: bold;
+    margin-top: 10px;
   }
-  .contentHeadDesc{
-    font-size: medium;
+
+  .contentHeadDescMain {
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    .contentHeadDesc {
+      font-size: medium;
+      font-weight: bold;
+      font-family: cursive;
+    }
   }
+
 }
 
-.contentHead{
+.contentHead {
   display: flex;
   padding: 20px 20px;
   justify-content: center;
   vertical-align: center;
 }
-.todo{
+
+.todo {
   display: flex;
   padding: 20px 20px;
   justify-content: center;
   vertical-align: center;
 }
-.leftContent{
+
+.leftContent {
   //display: flex;
   //padding: 20px 20px;
   //justify-content: center;
   //vertical-align: center;
 }
-.rightContent{
+
+.rightContent {
   //display: flex;
   //padding: 20px 20px;
   //justify-content: center;
   //vertical-align: center;
 }
-.baseInfo{
+
+.baseInfo {
   display: flex;
   padding: 20px 20px;
   justify-content: center;
   vertical-align: center;
 }
-.experience{
+
+.experience {
   display: flex;
   padding: 20px 20px;
   justify-content: center;

@@ -8,6 +8,7 @@ import Experience from "./experience";
 import {useEffect, useState} from "react";
 import {getPlExperiences} from "../../../actions/resume";
 import {ExperienceItemType} from "../../../utils/types";
+import {oneContent, requestOneImage} from "../../../actions/ExternalApi";
 
 export default function PLContent() {
     const transition = useTransition(true, {
@@ -19,21 +20,45 @@ export default function PLContent() {
         enter: {opacity: 1, position: 'relative', top: '0', left: '0'},
     });
     const [experiences, setExperiences] = useState<Array<ExperienceItemType>>([]);
+    const [one, setOne] = useState<{
+        content: string,
+        tag: string,
+    }>({} as any);
+    const [oneImage, setOneImage] = useState<string>('');
 
     useEffect(() => {
         getPlExperiences().then((res) => {
             setExperiences(res.data);
         });
+
+        oneContent().then((res) => {
+            let newOne = {
+                content: res.hitokoto,
+                tag: `- creator:${res.creator}`,
+            }
+            setOne(newOne);
+            console.log("+++++ENTER", newOne);
+        });
+
+        requestOneImage().then((res) => {
+            console.log(res);
+            // 获取img标签的src属性
+            let src = res.match(/<img.*?(?:>|\/>)/gi)[0].match(/src=[\'\"]?([^\'\"]*)[\'\"]?/i)[1];
+            setOneImage(src);
+        });
     }, []);
+
+
     return (
         <Content className={content.antLayoutContent}>
             <div className={content.contentHead}>
                 {transition((style, item) =>
-                        // @ts-ignore
-                        item && <animated.div style={style}
+                        item && <animated.div style={style as any}
                                               className={content.imageMessage}>
-                            <p className={content.contentHeadTitle}>这是我的练手项目</p>
-                            <p className={content.contentHeadDesc}>这是我的练手项目desc</p>
+                            <p className={content.contentHeadTitle}>{one.content}</p>
+                            <div className={content.contentHeadDescMain}>
+                                <p className={content.contentHeadDesc}>{one.tag}</p>
+                            </div>
                         </animated.div>
                 )}
             </div>
