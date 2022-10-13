@@ -4,7 +4,7 @@ import {getUserInfo, login} from "../../../actions/resume";
 import {NotificationPlacement} from "antd/es/notification";
 import {useLocation, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../../App";
-import {openNotification} from "../../../utils/util";
+import {openError} from "../../../utils/util";
 
 export default function LoginForm(props: { changeForm: Function }) {
     const {isLogin,setIsLogin,setUserInfo} = useContext(AuthContext);
@@ -24,7 +24,7 @@ export default function LoginForm(props: { changeForm: Function }) {
                     navigate(from, { replace: true });
                 })
             } else {
-                openNotification('top', res.message);
+                openError('top', res.message);
             }
         });
     }

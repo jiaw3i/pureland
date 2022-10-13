@@ -4,7 +4,7 @@ import {Button, DatePicker, Drawer, Form, Input, Space} from "antd";
 import {addPlExperience, getPlExperiences, updatePlExperience, updateUserInfo} from "../../../actions/resume";
 import {ExperienceItemType} from "../../../utils/types";
 import moment from "moment";
-import {openNotification} from "../../../utils/util";
+import {openError} from "../../../utils/util";
 
 export default function PlProfileFormDrawer(props: {
     open: boolean,
@@ -122,7 +122,7 @@ export function PlExperienceFormDrawer(props: {
                     getPlExperiences().then((res) => {
                         props.setExperiences(res.data);
                     });
-                    openNotification("top", "添加成功");
+                    openError("top", "添加成功");
                 }
                 props.setOpen(false);
             });
@@ -134,7 +134,7 @@ export function PlExperienceFormDrawer(props: {
                     getPlExperiences().then((res) => {
                         props.setExperiences(res.data);
                     });
-                    openNotification("top", "修改成功");
+                    openError("top", "修改成功");
                 }
                 props.setOpen(false);
             });

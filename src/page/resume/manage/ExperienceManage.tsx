@@ -3,7 +3,7 @@ import {ExperienceItemType} from "../../../utils/types";
 import {Button, Space, Table, Tooltip} from "antd";
 import {deletePlExperience, getPlExperiences} from "../../../actions/resume";
 import Column from "antd/es/table/Column";
-import {openNotification} from "../../../utils/util";
+import {openError} from "../../../utils/util";
 import {PlExperienceFormDrawer} from "../drawers/drawers";
 import manage from "./manage.less";
 
@@ -29,7 +29,7 @@ export default function ExperienceManage(props: {
         console.log(id);
         deletePlExperience(id).then((res) => {
             if (res.data >= 0) {
-                openNotification("top", "删除成功");
+                openError("top", "删除成功");
                 setExperiences(experiences.filter((item) => item.id !== id));
             }
         })

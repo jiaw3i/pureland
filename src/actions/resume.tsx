@@ -36,7 +36,7 @@ export function deleteTodo(id: number) {
 export function addTodoItem(content: string) {
     return request({
         url: '/pluser/todo/add',
-        method: 'POST',
+        method: 'GET',
         params: {
             content: content,
         },

@@ -4,6 +4,17 @@
     color: white;
   }
 
+  .ant-modal-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ant-modal {
+    position: initial;
+  }
+
+
   .ant-list-item-meta-description {
     white-space: nowrap;
     overflow: hidden;
@@ -28,10 +39,11 @@
     white-space: nowrap;
   }
 
-  div.ant-typography-edit-content{
+  div.ant-typography-edit-content {
     left: 0;
     margin-top: 0;
     width: 100%;
+
     textarea {
       margin-bottom: .2em;
       border: 0;
@@ -45,9 +57,11 @@
       background: white;
       border-radius: 0 20px 20px 0;
       white-space: nowrap;
+
       &::-webkit-scrollbar {
         display: none;
       }
+
       &:focus, .ant-input-focused {
         //border-color: #40a9ff;
         box-shadow: 0 0 0 0 rgb(24 144 255 / 20%);
@@ -57,7 +71,8 @@
     }
 
   }
-  textarea.ant-input{
+
+  textarea.ant-input {
     min-height: 100%;
   }
 
@@ -111,6 +126,7 @@
     }
   }
 
+
   .todoItemCA {
     width: 90%;
     height: 100%;
@@ -136,6 +152,24 @@
     //  overflow: hidden;
     //  contenteditable: true;
     //}
+  }
+
+  .todoAddItemContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: normal;
+    background: darkorange;
+    border-radius: 10px 10px 10px 10px;
+
+    &:nth-child(1) {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   .todoItemAction {

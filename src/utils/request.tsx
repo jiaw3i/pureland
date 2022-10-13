@@ -25,8 +25,12 @@ const request = (options: AxiosRequestConfig<any>) => {
         timeout: 1000 * 10,
         headers: token === null ? {} : {'AuthToken': token},
         ...options,
-    }).then(response => response.data)
-        .catch(err => {
+    }).then(response => {
+        if (response.data.code === 10008) {
+            localStorage.removeItem("AuthToken");
+        }
+        return response.data
+    }).catch(err => {
             console.log(`请求失败:`, err)
             console.log(`入参:`, options)
             return {message: '请求异常，请重试', success: false}

@@ -12,10 +12,15 @@ const TodoList = () => {
     useEffect(() => {
         setInitLoading(false);
         getTodoList().then((res) => {
-            setTodos(res.data);
+            if (res.data !== null) {
+                setTodos(res.data);
+            } else {
+                setTodos([]);
+            }
         });
-        console.log("useEffect",todos);
+        console.log("useEffect", todos);
     }, []);
+
 
     // function todoOnClick(id: number) {
     //     let dataById = getDataById(id);
@@ -29,7 +34,16 @@ const TodoList = () => {
     return (
         <div className={todo.todoMain}>
             {
-                todos.map((item) => <TodoItem key={item.id} item={item} length={todos.length} setTodos={setTodos}/>)
+                todos.length > 0 ?
+                    <div>{
+
+                        todos.map((item) => <TodoItem key={item.id} item={item} length={todos.length}
+                                                      setTodos={setTodos}/>)
+                    }
+                    <TodoItem key={""} item={{} as TodoItemType} length={0} setTodos={setTodos}/>
+
+                    </div>
+                    : <TodoItem key={""} item={{} as TodoItemType} length={todos.length} setTodos={setTodos}/>
             }
         </div>
     );
