@@ -5,6 +5,7 @@ import {UserInfo} from "./utils/types";
 import {BrowserRouter, Navigate, Route, Routes, useLocation} from "react-router-dom";
 import Home from "./page/resume/home/home";
 import Login from "./page/resume/login/login";
+import TitleConversion from "./page/text2cover/pages/text2cover/text2cover";
 
 export const AuthContext = createContext<{
     userInfo: UserInfo,
@@ -53,6 +54,7 @@ function App() {
                         </RequireAuth>
                     }/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/tc" element={<TitleConversion/>}/>
                 </Routes>
             </BrowserRouter>,
         </AuthContext.Provider>

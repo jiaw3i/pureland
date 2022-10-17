@@ -20,3 +20,15 @@ export function requestOneImage() {
         }
     })
 }
+
+export function randomGradientColors(id: string) {
+    return request({
+        url: 'one',
+        method: 'POST',
+        baseURL: "gradientApi",
+        params: {
+            submit: 'yes',
+            thegradient: id,
+        }
+    })
+}

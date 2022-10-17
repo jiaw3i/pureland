@@ -22,6 +22,12 @@ module.exports = function (app) {
                 '^/oneImageApi/one': ''
             }
         }),
-
+        createProxyMiddleware('/gradientApi/one', {
+            target: 'https://gradienthunt.com/thegradients.php',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/gradientApi/one': ''
+            }
+        })
     )
 }

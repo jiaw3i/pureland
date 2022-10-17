@@ -31,10 +31,10 @@ const request = (options: AxiosRequestConfig<any>) => {
         }
         return response.data
     }).catch(err => {
-            console.log(`请求失败:`, err)
-            console.log(`入参:`, options)
-            return {message: '请求异常，请重试', success: false}
-        })
+        console.log(`请求失败:`, err)
+        console.log(`入参:`, options)
+        return {message: '请求异常，请重试', success: false}
+    })
 }
 
-export default request
+export default request;
