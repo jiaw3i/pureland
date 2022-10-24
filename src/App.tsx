@@ -6,6 +6,7 @@ import {BrowserRouter, Navigate, Route, Routes, useLocation} from "react-router-
 import Home from "./page/resume/home/home";
 import Login from "./page/resume/login/login";
 import TitleConversion from "./page/text2cover/pages/text2cover/text2cover";
+import ExerciseHome from "./page/exercise/pages/home/home";
 
 export const AuthContext = createContext<{
     userInfo: UserInfo,
@@ -55,6 +56,7 @@ function App() {
                     }/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/tc" element={<TitleConversion/>}/>
+                    <Route path="/exercise" element={<ExerciseHome/>}/>
                 </Routes>
             </BrowserRouter>,
         </AuthContext.Provider>
