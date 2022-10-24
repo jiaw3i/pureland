@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import React, {useState} from "react";
 import {Content, Header} from "antd/es/layout/layout";
+import QAContent from "../qacontent/qacontent";
 
 export default function ExerciseHome() {
 
@@ -39,7 +40,6 @@ export default function ExerciseHome() {
                     style={{
                         overflow: 'auto',
                         height: '100vh',
-                        position: 'fixed',
                         left: 0,
                         top: 0,
                         bottom: 0,
@@ -55,17 +55,7 @@ export default function ExerciseHome() {
                             onClick: () => setCollapsed(!collapsed),
                         })}
                     </Header>
-                    <Content className={styles.siteLayoutBackground}
-                             style={{
-                                 margin: '24px 16px',
-                                 padding: 24,
-                                 minHeight: 280,
-                             }}
-                    >
-                        <div className="site-layout-background" style={{padding: 24, textAlign: 'center'}}>
-
-                        </div>
-                    </Content>
+                    <QAContent/>
 
                 </Layout>
             </Layout>
