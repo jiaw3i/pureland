@@ -5,13 +5,26 @@ import {Button, Divider, Form, Input, InputRef, Radio, Rate, Select, Space} from
 import {Option} from "antd/es/mentions";
 
 import {PlusOutlined} from '@ant-design/icons';
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {useForm} from "antd/es/form/Form";
+import {getAllTag, insertQuestion, insertTag} from "../../../../actions/interviewqa";
 
+export type QuestionType = {
+    id: number,
+    type: string,
+    content: string,
+    level: number,
+    tags: string,
+    updateTime: string,
+}
 
 export default function QuestionManage() {
     const inputRef = useRef<InputRef>(null);
-    const [qForm] = useForm()
+    const [qForm] = useForm();
+
+    const [tagName, setTagName] = React.useState<string>("");
+    const [tags, setTags] = React.useState<Array<{ id: number, tagName: string }>>([]);
+
     const manageOptions = [
         "题目管理",
         "标签管理",
@@ -26,6 +39,13 @@ export default function QuestionManage() {
         "分布式"
     ];
 
+
+    useEffect(() => {
+        getAllTag().then(res => {
+            setTags(res.data);
+        })
+    }, []);
+
     /**
      * 标签选择器change事件
      * @param value
@@ -38,6 +58,13 @@ export default function QuestionManage() {
      */
     const addTag = () => {
         console.log("add tag");
+        insertTag(tagName).then((res) => {
+            if (res.success) {
+                getAllTag().then(res => {
+                    setTags(res.data);
+                })
+            }
+        })
     }
     /**
      * 标签选择器中的输入框change事件
@@ -45,6 +72,7 @@ export default function QuestionManage() {
      */
     const onTagInputChange = (e: any) => {
         console.log(e.target.value);
+        setTagName(e.target.value);
     }
 
 
@@ -54,6 +82,15 @@ export default function QuestionManage() {
     const onReset = () => {
         qForm.resetFields();
     };
+
+    const qFormFinish = (values: any) => {
+        console.log(values);
+        values.tags = values.tags.join(",");
+        insertQuestion(values).then(res => {
+            console.log("qFormFinish=>", res);
+        })
+    }
+
     return (
         <Content className={homeStyles.siteLayoutBackground}
                  style={{
@@ -65,7 +102,7 @@ export default function QuestionManage() {
 
                 <div className={qmanageStyles.qManageFilter}>
                     <div className={qmanageStyles.qManageFilterType}>
-                        <Radio.Group options={manageOptions} optionType="button"
+                        <Radio.Group defaultValue={"题目管理"} options={manageOptions} optionType="button"
                                      buttonStyle="solid"/>
                     </div>
                 </div>
@@ -79,9 +116,10 @@ export default function QuestionManage() {
                             layout={"vertical"}
                             name="qForm"
                             form={qForm}
+                            onFinish={qFormFinish}
                         >
 
-                            <Form.Item label={"标签"}>
+                            <Form.Item label={"标签"} name={"tags"}>
                                 <Select
                                     mode="multiple"
                                     style={{width: '100%'}}
@@ -104,15 +142,16 @@ export default function QuestionManage() {
                                         </>
                                     )}
                                 >
-                                    <Option value={"Java"}>Java</Option>
-                                    <Option value={"微服务"}>微服务</Option>
-                                    <Option value={"Redis"}>Redis</Option>
-                                    <Option value={"高并发"}>高并发</Option>
+                                    {
+                                        tags.map(tag => {
+                                            return (<Option value={tag.tagName}>{tag.tagName}</Option>)
+                                        })
+                                    }
                                 </Select>
                             </Form.Item>
 
 
-                            <Form.Item label={"题目类型"}>
+                            <Form.Item label={"题目类型"} name={"type"}>
                                 <Select showSearch
                                         placeholder={"选择题目类型"}
                                         optionFilterProp="children"
@@ -123,21 +162,21 @@ export default function QuestionManage() {
 
                             </Form.Item>
 
-                            <Form.Item label={"题目内容"}>
+                            <Form.Item label={"题目内容"} name={"content"}>
                                 <Input.TextArea autoSize={{minRows: 3, maxRows: 3}}>
 
                                 </Input.TextArea>
                             </Form.Item>
-                            <Form.Item label={"题目解析"}>
+                            <Form.Item label={"题目解析"} name={"answer"}>
                                 <Input.TextArea autoSize={{minRows: 3, maxRows: 3}}/>
                             </Form.Item>
-                            <Form.Item label={"题目难度"}>
+                            <Form.Item label={"题目难度"} name={"level"}>
                                 <Rate/>
                             </Form.Item>
 
 
-                            <Form.Item >
-                                <Button type="primary" htmlType="submit" style={{marginRight:"10px"}}>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" style={{marginRight: "10px"}}>
                                     提交
                                 </Button>
                                 <Button type="primary" danger htmlType="button" onClick={onReset}>

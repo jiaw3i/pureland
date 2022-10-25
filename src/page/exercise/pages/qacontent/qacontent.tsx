@@ -1,9 +1,11 @@
 import styles from "./qacontent.less";
 import homeStyles from "../home/home.less";
 import {Content} from "antd/es/layout/layout";
-import React from "react";
+import React, {useEffect} from "react";
 import {Checkbox, Col, Divider, List, Radio, Rate, Row, Skeleton, Tag} from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {getQuestions} from "../../../../actions/interviewqa";
+import {QuestionType} from "../questionmanager/qmanage";
 
 export default function QAContent() {
 
@@ -21,78 +23,16 @@ export default function QAContent() {
         "按照标签排序",
     ];
 
-    const questions: Array<{
-        id: number,
-        title: string,
-        type: string,
-        level: number,
-        tags: Array<string>,
-        updateTime: string,
-    }> =
-        [
-            {
-                id: 1,
-                title: "这是一个问题",
-                type: "选择题",
-                level: 1,
-                tags: ["Apple", "Pear", "Orange", "Banana"],
-                updateTime: "2021-01-01",
-            }, {
-            id: 2,
-            title: "这是一个问题",
-            type: "问答题",
-            level: 1,
-            tags: ["Apple", "Pear", "Orange", "Banana"],
-            updateTime: "2021-01-01",
-        },
-            {
-                id: 3,
-                title: "这是一个问题",
-                type: "问答题",
-                level: 1,
-                tags: ["Apple", "Pear", "Orange", "Banana"],
-                updateTime: "2021-01-01",
-            },
-            {
-                id: 4,
-                title: "这是一个问题",
-                type: "问答题",
-                level: 1,
-                tags: ["Apple", "Pear", "Orange", "Banana"],
-                updateTime: "2021-01-01",
-            },
-            {
-                id: 5,
-                title: "这是一个问题",
-                type: "问答题",
-                level: 1,
-                tags: ["Apple", "Pear", "Orange", "Banana"],
-                updateTime: "2021-01-01",
-            }, {
-            id: 6,
-            title: "这是一个问题",
-            type: "问答题",
-            level: 1,
-            tags: ["Apple", "Pear", "Orange", "Banana"],
-            updateTime: "2021-01-01",
-        }, {
-            id: 7,
-            title: "这是一个问题",
-            type: "问答题",
-            level: 1,
-            tags: ["Apple", "Pear", "Orange", "Banana"],
-            updateTime: "2021-01-01",
-        },
-            {
-                id: 8,
-                title: "这是一个问题",
-                type: "问答题",
-                level: 1,
-                tags: ["Apple", "Pear", "Orange", "Banana"],
-                updateTime: "2021-01-01",
-            },
-        ]
+    const [questions, setQuestions] = React.useState<Array<QuestionType>>([]);
+    const [hasMore, setHasMore] = React.useState<boolean>(false);
 
+    useEffect(() => {
+        getQuestions().then(res => {
+            if (res.success) {
+                setQuestions(res.data);
+            }
+        })
+    }, []);
     const loadMoreData = () => {
         console.log("load more");
     }
@@ -138,8 +78,8 @@ export default function QAContent() {
                         <InfiniteScroll
                             dataLength={questions.length}
                             next={loadMoreData}
-                            hasMore={questions.length < 50}
-                            loader={<Skeleton avatar paragraph={{rows: 1}} active/>}
+                            hasMore={hasMore}
+                            loader={<Skeleton avatar paragraph={{rows: 1}}/>}
                             endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                             scrollableTarget="scrollableDiv"
                         >
@@ -150,7 +90,7 @@ export default function QAContent() {
                                     <List.Item key={item.id}>
                                         <div className={styles.qaContentItemTitle}>
                                             <Tag color="#2db7f5">{item.type}</Tag>
-                                            {item.id}. {item.title}
+                                            {item.id}. {item.content}
                                         </div>
                                         <div className={styles.qaContentItemInfo}>
                                             <div className={styles.qaContentItemLevel}>
