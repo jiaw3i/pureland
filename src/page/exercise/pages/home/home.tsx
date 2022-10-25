@@ -10,10 +10,12 @@ import {
 import React, {useState} from "react";
 import {Content, Header} from "antd/es/layout/layout";
 import QAContent from "../qacontent/qacontent";
+import QuestionManage from "../questionmanager/qmanage";
 
 export default function ExerciseHome() {
 
     const [collapsed, setCollapsed] = useState(false);
+    const [menuKey, setMenuKey] = useState("1");
 
     const menus: MenuProps['items'] = [
         {
@@ -25,9 +27,26 @@ export default function ExerciseHome() {
             key: "2",
             label: "背题模式",
             icon: <SmileOutlined/>,
+        },
+        {
+            key: "3",
+            label: "面试经验",
+            icon: <SmileOutlined/>,
+        },
+        {
+            key: "4",
+            label: "数据录入",
+            icon: <SmileOutlined/>,
         }
     ];
 
+    const menuMap = new Map<string, React.ReactNode>();
+    menuMap.set("1", <QAContent/>);
+    menuMap.set("4", <QuestionManage/>);
+
+    const menuOnclick = (e: any) => {
+        setMenuKey(e.key);
+    }
 
     return (
         <div className={styles.exerciseMain}>
@@ -45,7 +64,7 @@ export default function ExerciseHome() {
                         bottom: 0,
                     }}
                 >
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={menus}/>
+                    <Menu onClick={menuOnclick} theme="dark" mode="inline" defaultSelectedKeys={['1']} items={menus}/>
                 </Sider>
 
                 <Layout className={styles.siteLayout}>
@@ -55,7 +74,7 @@ export default function ExerciseHome() {
                             onClick: () => setCollapsed(!collapsed),
                         })}
                     </Header>
-                    <QAContent/>
+                    {menuMap.get(menuKey)}
 
                 </Layout>
             </Layout>

@@ -26,4 +26,4 @@ yarn-error.log*
 .idea
 Project_Default.xml
 
-/config
+/config/
