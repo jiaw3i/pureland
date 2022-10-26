@@ -1,38 +1,44 @@
 import styles from "./qacontent.less";
 import homeStyles from "../home/home.less";
 import {Content} from "antd/es/layout/layout";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Checkbox, Col, Divider, List, Radio, Rate, Row, Skeleton, Tag} from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {getQuestions} from "../../../../actions/interviewqa";
+import {getAllTag, getQuestions} from "../../../../actions/interviewqa";
 import {QuestionType} from "../questionmanager/qmanage";
 
 export default function QAContent() {
 
-    const tags = ["Apple", "Pear", "Orange", "Banana"
-        , "Apple", "Pear", "Orange", "Banana"
-        , "Apple", "Pear", "Orange", "Banana"
-        , "Apple", "Pear", "Orange", "Banana"
-        , "Apple", "Pear", "Orange", "Banana"
-        , "Apple", "Pear", "Orange", "Banana"
-        , "Apple", "Pear", "Orange", "Banana"];
+    const [tags,setTags] = useState<Array<{
+        id: number,
+        tagName: string
+    }>>();
 
     const sortOptions = [
         "按照时间排序",
         "按照难度排序",
-        "按照标签排序",
     ];
 
     const [questions, setQuestions] = React.useState<Array<QuestionType>>([]);
     const [hasMore, setHasMore] = React.useState<boolean>(false);
 
+    /**
+     * 初始化数据
+     */
     useEffect(() => {
+        getAllTag().then(res=>{
+            if (res.success){
+                setTags(res.data);
+            }
+        });
         getQuestions().then(res => {
             if (res.success) {
                 setQuestions(res.data);
             }
-        })
+        });
+
     }, []);
+
     const loadMoreData = () => {
         console.log("load more");
     }
@@ -44,11 +50,11 @@ export default function QAContent() {
                      minHeight: 280,
                  }}
         >
-            <div className={homeStyles.siteLayoutBackground}>
+            <div className={homeStyles.siteLayoutBackground} style={{width:"100%"}}>
                 <div className={styles.qaFilter}>
                     <div className={styles.qaFilterTag}>
                         <label className={styles.qaFilterTagLabel}>标签</label>
-                        <Checkbox.Group options={tags} defaultValue={['Apple']}>
+                        <Checkbox.Group options={tags?.map(tag=> tag.tagName)} defaultValue={['Apple']}>
 
                         </Checkbox.Group>
 
@@ -58,6 +64,7 @@ export default function QAContent() {
                     <div className={styles.qaFilterSort}>
                         <label className={styles.qaFilterSortLabel}>排序</label>
                         <Radio.Group
+                            defaultValue={sortOptions[0]}
                             options={sortOptions}
                             optionType="button"
                             buttonStyle="solid"
@@ -94,7 +101,7 @@ export default function QAContent() {
                                         </div>
                                         <div className={styles.qaContentItemInfo}>
                                             <div className={styles.qaContentItemLevel}>
-                                                <Rate disabled defaultValue={item.level}/>
+                                                难度：<Rate disabled defaultValue={item.level}/>
                                             </div>
                                             <div>更新时间：{item.updateTime}</div>
                                         </div>

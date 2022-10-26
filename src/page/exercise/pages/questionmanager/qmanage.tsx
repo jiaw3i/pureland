@@ -8,6 +8,7 @@ import {PlusOutlined} from '@ant-design/icons';
 import React, {useEffect, useRef} from "react";
 import {useForm} from "antd/es/form/Form";
 import {getAllTag, insertQuestion, insertTag} from "../../../../actions/interviewqa";
+import VEditor from "../editor/editor";
 
 export type QuestionType = {
     id: number,
@@ -15,6 +16,7 @@ export type QuestionType = {
     content: string,
     level: number,
     tags: string,
+    answer: string,
     updateTime: string,
 }
 
@@ -144,7 +146,8 @@ export default function QuestionManage() {
                                 >
                                     {
                                         tags.map(tag => {
-                                            return (<Option value={tag.tagName}>{tag.tagName}</Option>)
+                                            return (<Select.Option key={tag.id}
+                                                                   value={tag.tagName}>{tag.tagName}</Select.Option>)
                                         })
                                     }
                                 </Select>
@@ -156,8 +159,8 @@ export default function QuestionManage() {
                                         placeholder={"选择题目类型"}
                                         optionFilterProp="children"
                                 >
-                                    <Option value={"问答题"}>问答题</Option>
-                                    <Option value={"选择题"}>选择题</Option>
+                                    <Select.Option value={"问答题"}>问答题</Select.Option>
+                                    <Select.Option value={"选择题"}>选择题</Select.Option>
                                 </Select>
 
                             </Form.Item>
@@ -168,7 +171,8 @@ export default function QuestionManage() {
                                 </Input.TextArea>
                             </Form.Item>
                             <Form.Item label={"题目解析"} name={"answer"}>
-                                <Input.TextArea autoSize={{minRows: 3, maxRows: 3}}/>
+                                {/*<Input.TextArea autoSize={{minRows: 3, maxRows: 3}}/>*/}
+                                <VEditor/>
                             </Form.Item>
                             <Form.Item label={"题目难度"} name={"level"}>
                                 <Rate/>
