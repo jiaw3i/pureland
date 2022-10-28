@@ -22,6 +22,12 @@ export type QuestionType = {
 
 export default function QuestionManage() {
     const inputRef = useRef<InputRef>(null);
+    const editorRef = useRef<{
+        clearEditor(): void;
+    }>(null);
+    const clearEditor = () => {
+        editorRef.current?.clearEditor();
+    }
     const [qForm] = useForm();
 
     const [tagName, setTagName] = React.useState<string>("");
@@ -88,9 +94,11 @@ export default function QuestionManage() {
     const qFormFinish = (values: any) => {
         console.log(values);
         values.tags = values.tags.join(",");
-        insertQuestion(values).then(res => {
-            console.log("qFormFinish=>", res);
-        })
+        // insertQuestion(values).then(res => {
+        //     console.log("qFormFinish=>", res);
+        // });
+        // 清除编辑器文字
+        // clearEditor();
     }
 
     return (

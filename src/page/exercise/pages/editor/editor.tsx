@@ -1,10 +1,13 @@
 import Vditor from "vditor";
 import "vditor/dist/index.css";
-import {useEffect, useState} from "react";
+import {Ref, useEffect, useImperativeHandle, useState} from "react";
 
 
-export default function VEditor({ value = {}, onChange= (changedValue: string | undefined)=>{} }){
-    const [vd,setVd] = useState<Vditor>();
+export default function VEditor({
+                                    ref={} as Ref<any>,value = {}, onChange = (changedValue: string | undefined) => {
+    }
+                                }) {
+    const [vd, setVd] = useState<Vditor>();
     const toolbar = [
         'emoji',
         'headings',
@@ -27,10 +30,18 @@ export default function VEditor({ value = {}, onChange= (changedValue: string | 
     ];
 
 
+    // useImperativeHandle(ref,()=>{
+    //     clearEditor();
+    // })
+
+    const clearEditor = () => {
+        vd?.setValue("");
+    }
+
     const triggerChange = (changedValue: string | undefined) => {
         onChange?.(changedValue);
     };
-    useEffect(()=>{
+    useEffect(() => {
         const vditor = new Vditor("vditor", {
             toolbar,
             input(value: string) {
@@ -42,7 +53,7 @@ export default function VEditor({ value = {}, onChange= (changedValue: string | 
                 setVd(vditor);
             }
         });
-    },[]);
+    }, []);
     return (
         <div id="vditor" className="vditor">
 
