@@ -4,8 +4,10 @@ import {Ref, useEffect, useImperativeHandle, useState} from "react";
 
 
 export default function VEditor({
-                                    ref={} as Ref<any>,value = {}, onChange = (changedValue: string | undefined) => {
-    }
+                                    onRef = null as Ref<any>,
+                                    value = {},
+                                    onChange = (changedValue: string | undefined) => {
+                                    }
                                 }) {
     const [vd, setVd] = useState<Vditor>();
     const toolbar = [
@@ -30,11 +32,15 @@ export default function VEditor({
     ];
 
 
-    // useImperativeHandle(ref,()=>{
-    //     clearEditor();
-    // })
+    useImperativeHandle(onRef, () => {
+        console.log("clear edit0");
+        return {
+            clearEditor: clearEditor,
+        }
+    })
 
     const clearEditor = () => {
+        console.log("clear edit1");
         vd?.setValue("");
     }
 

@@ -5,7 +5,7 @@ import {Button, Divider, Form, Input, InputRef, Radio, Rate, Select, Space} from
 import {Option} from "antd/es/mentions";
 
 import {PlusOutlined} from '@ant-design/icons';
-import React, {useEffect, useRef} from "react";
+import React, {createRef, useEffect, useRef} from "react";
 import {useForm} from "antd/es/form/Form";
 import {getAllTag, insertQuestion, insertTag} from "../../../../actions/interviewqa";
 import VEditor from "../editor/editor";
@@ -24,7 +24,7 @@ export default function QuestionManage() {
     const inputRef = useRef<InputRef>(null);
     const editorRef = useRef<{
         clearEditor(): void;
-    }>(null);
+    }>();
     const clearEditor = () => {
         editorRef.current?.clearEditor();
     }
@@ -89,17 +89,19 @@ export default function QuestionManage() {
      */
     const onReset = () => {
         qForm.resetFields();
+        clearEditor();
     };
 
     const qFormFinish = (values: any) => {
         console.log(values);
         values.tags = values.tags.join(",");
-        // insertQuestion(values).then(res => {
-        //     console.log("qFormFinish=>", res);
-        // });
-        // 清除编辑器文字
-        // clearEditor();
-    }
+        insertQuestion(values).then(res => {
+            if (res.success) {
+                // 如果成功 清除表单
+                onReset();
+            }
+        });
+    };
 
     return (
         <Content className={homeStyles.siteLayoutBackground}
@@ -180,7 +182,7 @@ export default function QuestionManage() {
                             </Form.Item>
                             <Form.Item label={"题目解析"} name={"answer"}>
                                 {/*<Input.TextArea autoSize={{minRows: 3, maxRows: 3}}/>*/}
-                                <VEditor/>
+                                <VEditor onRef={editorRef}/>
                             </Form.Item>
                             <Form.Item label={"题目难度"} name={"level"}>
                                 <Rate/>
