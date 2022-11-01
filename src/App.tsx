@@ -8,6 +8,8 @@ import Login from "./page/resume/login/login";
 import TitleConversion from "./page/text2cover/pages/text2cover/text2cover";
 import ExerciseHome from "./page/exercise/pages/home/home";
 import QuestionManage from "./page/exercise/pages/questionmanager/qmanage";
+import QAContent from "./page/exercise/pages/qacontent/qacontent";
+import QADetail from "./page/exercise/pages/qadetail/qadetail";
 
 export const AuthContext = createContext<{
     userInfo: UserInfo,
@@ -50,14 +52,22 @@ function App() {
         <AuthContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin}}>
             <BrowserRouter>
                 <Routes>
+
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/tc" element={<TitleConversion/>}/>
+                    <Route path="/exercise" element={<ExerciseHome/>}>
+                        <Route path="qa" element={<QAContent/>}>
+                        </Route>
+                        <Route path="qa/question/:id" element={<QADetail/>}/>
+                        <Route path="manager" element={<QuestionManage/>}/>
+                    </Route>
                     <Route path="/" element={
                         <RequireAuth>
                             <Home/>
                         </RequireAuth>
                     }/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/tc" element={<TitleConversion/>}/>
-                    <Route path="/exercise" element={<ExerciseHome/>}/>
+
+
                     <Route path="/qmanage" element={<QuestionManage/>}/>
                 </Routes>
             </BrowserRouter>,

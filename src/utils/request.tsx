@@ -11,7 +11,7 @@ const request = (options: AxiosRequestConfig<any>) => {
         axios.defaults.baseURL = options.baseURL;
     }
     const {url, method = 'GET', params = {}} = options
-    console.log(url, axios.defaults.baseURL)
+    console.log(axios.defaults.baseURL +url)
     if (method === 'GET') {
         options.params = params
     } else {

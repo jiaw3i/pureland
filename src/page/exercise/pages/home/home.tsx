@@ -11,12 +11,13 @@ import React, {useState} from "react";
 import {Content, Header} from "antd/es/layout/layout";
 import QAContent from "../qacontent/qacontent";
 import QuestionManage from "../questionmanager/qmanage";
+import {Outlet, useNavigate} from "react-router-dom";
 
 export default function ExerciseHome() {
 
     const [collapsed, setCollapsed] = useState(false);
     const [menuKey, setMenuKey] = useState("1");
-
+    const navigate = useNavigate();
     const menus: MenuProps['items'] = [
         {
             key: "1",
@@ -40,12 +41,13 @@ export default function ExerciseHome() {
         }
     ];
 
-    const menuMap = new Map<string, React.ReactNode>();
-    menuMap.set("1", <QAContent/>);
-    menuMap.set("4", <QuestionManage/>);
+    const menuMap = new Map<string, string>();
+    menuMap.set("1", "qa");
+    menuMap.set("4", "manager");
 
     const menuOnclick = (e: any) => {
-        setMenuKey(e.key);
+        // setMenuKey(e.key);
+        navigate(menuMap.get(e.key) as string);
     }
 
     return (
@@ -74,7 +76,9 @@ export default function ExerciseHome() {
                             onClick: () => setCollapsed(!collapsed),
                         })}
                     </Header>
-                    {menuMap.get(menuKey)}
+
+                    {/*{menuMap.get(menuKey)}*/}
+                    <Outlet/>
 
                 </Layout>
             </Layout>
