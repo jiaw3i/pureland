@@ -6,9 +6,11 @@ import {Checkbox, Col, Divider, List, Radio, Rate, Row, Skeleton, Tag} from "ant
 import InfiniteScroll from "react-infinite-scroll-component";
 import {getAllTag, getQuestions} from "../../../../actions/interviewqa";
 import {QuestionType} from "../questionmanager/qmanage";
+import {useNavigate} from "react-router-dom";
 
 export default function QAContent() {
 
+    const navigate = useNavigate();
     const [tags,setTags] = useState<Array<{
         id: number,
         tagName: string
@@ -94,7 +96,7 @@ export default function QAContent() {
 
                                 dataSource={questions}
                                 renderItem={item => (
-                                    <List.Item key={item.id}>
+                                    <List.Item key={item.id} onClick={()=>navigate(`question/${item.id}`)}>
                                         <div className={styles.qaContentItemTitle}>
                                             <Tag color="#2db7f5">{item.type}</Tag>
                                             {item.id}. {item.content}

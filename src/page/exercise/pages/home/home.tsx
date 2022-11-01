@@ -1,4 +1,4 @@
-import {Layout, Menu, MenuProps} from "antd";
+import {Breadcrumb, Layout, Menu, MenuProps} from "antd";
 import Sider from "antd/es/layout/Sider";
 import styles from './home.less';
 import {
@@ -11,7 +11,7 @@ import React, {useState} from "react";
 import {Content, Header} from "antd/es/layout/layout";
 import QAContent from "../qacontent/qacontent";
 import QuestionManage from "../questionmanager/qmanage";
-import {Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 
 export default function ExerciseHome() {
 
@@ -50,6 +50,25 @@ export default function ExerciseHome() {
         navigate(menuMap.get(e.key) as string);
     }
 
+    const breadcrumbNameMap: Record<string, string> = {
+        '/exercise': '面试练习首页',
+        '/exercise/qa': '问答模式',
+        '/exercise/qa/question': '问题详情页',
+        '/exercise/manager': '数据管理',
+        '/apps/1/detail': 'Detail',
+        '/apps/2/detail': 'Detail',
+    };
+    const location = useLocation();
+    const pathSnippets = location.pathname.split('/').filter((i: any) => i);
+    const extraBreadcrumbItems = pathSnippets.map((_: any, index: number) => {
+        const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+        return (
+            <Breadcrumb.Item key={url}>
+                <Link to={url}>{breadcrumbNameMap[url]}</Link>
+            </Breadcrumb.Item>
+        );
+    });
+
     return (
         <div className={styles.exerciseMain}>
             <Layout>
@@ -70,11 +89,15 @@ export default function ExerciseHome() {
                 </Sider>
 
                 <Layout className={styles.siteLayout}>
-                    <Header className={styles.siteLayoutBackground} style={{padding: 0}}>
+                    <Header className={`${styles.siteLayoutBackground} ${styles.exerciseHeader}`} style={{padding: 0}}>
                         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: styles.trigger,
                             onClick: () => setCollapsed(!collapsed),
                         })}
+                        <div>
+
+                            <Breadcrumb>{extraBreadcrumbItems}</Breadcrumb>
+                        </div>
                     </Header>
 
                     {/*{menuMap.get(menuKey)}*/}
