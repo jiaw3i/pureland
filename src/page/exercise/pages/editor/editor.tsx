@@ -1,4 +1,5 @@
 import Vditor from "vditor";
+import styles from "./editor.less";
 import "vditor/dist/index.css";
 import {Ref, useEffect, useImperativeHandle, useState} from "react";
 
@@ -33,14 +34,12 @@ export default function VEditor({
 
 
     useImperativeHandle(onRef, () => {
-        console.log("clear edit0");
         return {
             clearEditor: clearEditor,
         }
     })
 
     const clearEditor = () => {
-        console.log("clear edit1");
         vd?.setValue("");
     }
 
@@ -50,6 +49,7 @@ export default function VEditor({
     useEffect(() => {
         const vditor = new Vditor("vditor", {
             toolbar,
+            height:"100%",
             input(value: string) {
                 console.log(value)
                 triggerChange(value)
@@ -61,7 +61,7 @@ export default function VEditor({
         });
     }, []);
     return (
-        <div id="vditor" className="vditor">
+        <div id="vditor" className={`${styles.editor}`}>
 
         </div>
     )

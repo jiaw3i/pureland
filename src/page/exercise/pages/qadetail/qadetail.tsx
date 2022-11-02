@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {Content} from "antd/es/layout/layout";
 import React, {useEffect, useState} from "react";
 import {QuestionType} from "../questionmanager/qmanage";
+import VEditor from "../editor/editor";
 
 export default function QADetail() {
     const params = useParams();
@@ -40,7 +41,7 @@ export default function QADetail() {
                 <Divider>题目</Divider>
                 <div className={styles.questionDetailContentMain}>
                     <div className={styles.questionDetailContentMyAnswer}>
-                        <p>我的答案：</p>
+                        <VEditor></VEditor>
                     </div>
 
                     <div className={styles.questionDetailContentAnswer}>
