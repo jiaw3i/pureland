@@ -89,7 +89,7 @@ export default function ExerciseHome() {
                 </Sider>
 
                 <Layout className={styles.siteLayout}>
-                    <Header className={`${styles.siteLayoutBackground} ${styles.exerciseHeader}`} style={{padding: 0}}>
+                    <Header className={`${styles.exerciseHeader}`} style={{padding: 0}}>
                         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: styles.trigger,
                             onClick: () => setCollapsed(!collapsed),

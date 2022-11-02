@@ -44,6 +44,10 @@ export default function QAContent() {
     const loadMoreData = () => {
         console.log("load more");
     }
+    const filterQuestion = (id:number)=>{
+        // 根据id过滤question
+        return questions.filter(q=> id === q.id);
+    }
     return (
         <Content className={homeStyles.siteLayoutBackground}
                  style={{
@@ -96,7 +100,9 @@ export default function QAContent() {
 
                                 dataSource={questions}
                                 renderItem={item => (
-                                    <List.Item key={item.id} onClick={()=>navigate(`question/${item.id}`)}>
+                                    <List.Item key={item.id} onClick={()=>navigate(`question/${item.id}`,{
+                                        state: filterQuestion(item.id)
+                                    })}>
                                         <div className={styles.qaContentItemTitle}>
                                             <Tag color="#2db7f5">{item.type}</Tag>
                                             {item.id}. {item.content}
