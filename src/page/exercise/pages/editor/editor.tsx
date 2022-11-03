@@ -36,12 +36,17 @@ export default function VEditor({
     useImperativeHandle(onRef, () => {
         return {
             clearEditor: clearEditor,
+            setEditorValue: setEditorValue,
         }
     })
 
+    const setEditorValue = (value: string) => {
+        vd?.setValue(value);
+    };
+
     const clearEditor = () => {
         vd?.setValue("");
-    }
+    };
 
     const triggerChange = (changedValue: string | undefined) => {
         onChange?.(changedValue);

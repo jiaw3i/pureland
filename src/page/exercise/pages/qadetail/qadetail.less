@@ -34,18 +34,39 @@
   flex: auto;
   justify-content: space-between;
   min-height: 280px;
-  .questionDetailContentMyAnswer {
-    //height: 100%;
-    //border: .5em solid #03A9F3;
+
+  .questionDetailContentLeft {
+    display: flex;
     width: 48%;
-    //flex: auto;
-    //background: #6aa0c7;
+    flex-direction: column;
+
+    .questionDetailContentMyAnswer {
+      //height: 100%;
+      //border: .5em solid #03A9F3;
+      flex: auto;
+      width: 100%;
+      //flex: auto;
+      //background: #6aa0c7;
+    }
   }
 
-  .questionDetailContentAnswer {
-    height: 100%;
+  .questionDetailContentRight {
     width: 48%;
-    //background: #6aa0c7;
-    border: .5em solid #168a5e;
+    display: flex;
+    flex-direction: column;
+    .questionDetailContentAnswer {
+      //height: 100%;
+      flex: auto;
+      width: 100%;
+      //background: #6aa0c7;
+      border: .3em solid #dad010;
+      filter: blur(5px);
+
+      &:hover {
+        border: .3em solid #03A9F3;
+        filter: none;
+      }
+    }
   }
+
 }
