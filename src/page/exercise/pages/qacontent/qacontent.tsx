@@ -11,31 +11,33 @@ import {useNavigate} from "react-router-dom";
 export default function QAContent() {
 
     const navigate = useNavigate();
-    const [tags,setTags] = useState<Array<{
+    const [tags, setTags] = useState<Array<{
         id: number,
         tagName: string
     }>>();
+    const [page, setPage] = useState<number>(1);
+    const [pageSize, setPageSize] = useState<number>(15);
+    const [questions, setQuestions] = React.useState<Array<QuestionType>>([]);
 
     const sortOptions = [
         "按照时间排序",
         "按照难度排序",
     ];
-
-    const [questions, setQuestions] = React.useState<Array<QuestionType>>([]);
     const [hasMore, setHasMore] = React.useState<boolean>(false);
 
     /**
      * 初始化数据
      */
     useEffect(() => {
-        getAllTag().then(res=>{
-            if (res.success){
+        getAllTag().then(res => {
+            if (res.success) {
                 setTags(res.data);
             }
         });
-        getQuestions().then(res => {
+        getQuestions(page, pageSize).then(res => {
             if (res.success) {
                 setQuestions(res.data);
+                setPage(page + 1);
             }
         });
 
@@ -44,9 +46,9 @@ export default function QAContent() {
     const loadMoreData = () => {
         console.log("load more");
     }
-    const filterQuestion = (id:number)=>{
+    const filterQuestion = (id: number) => {
         // 根据id过滤question
-        return questions.filter(q=> id === q.id);
+        return questions.filter(q => id === q.id);
     }
     return (
         <Content className={homeStyles.siteLayoutBackground}
@@ -56,11 +58,11 @@ export default function QAContent() {
                      minHeight: 280,
                  }}
         >
-            <div className={homeStyles.siteLayoutBackground} style={{width:"100%"}}>
+            <div className={homeStyles.siteLayoutBackground} style={{width: "100%"}}>
                 <div className={styles.qaFilter}>
                     <div className={styles.qaFilterTag}>
                         <label className={styles.qaFilterTagLabel}>标签</label>
-                        <Checkbox.Group options={tags?.map(tag=> tag.tagName)} defaultValue={['Apple']}>
+                        <Checkbox.Group options={tags?.map(tag => tag.tagName)} defaultValue={['Apple']}>
 
                         </Checkbox.Group>
 
@@ -100,7 +102,7 @@ export default function QAContent() {
 
                                 dataSource={questions}
                                 renderItem={item => (
-                                    <List.Item key={item.id} onClick={()=>navigate(`question/${item.id}`,{
+                                    <List.Item key={item.id} onClick={() => navigate(`question/${item.id}`, {
                                         state: filterQuestion(item.id)
                                     })}>
                                         <div className={styles.qaContentItemTitle}>

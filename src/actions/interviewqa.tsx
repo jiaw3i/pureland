@@ -33,11 +33,15 @@ export function deleteTagById(id: number) {
 }
 
 
-export function getQuestions() {
+export function getQuestions(page:number,pageSize:number) {
     return request(
         {
             url: '/qa/questions',
             method: 'GET',
+            params: {
+                page: page,
+                pageSize: pageSize
+            }
         }
     )
 }
