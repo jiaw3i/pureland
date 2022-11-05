@@ -37,7 +37,7 @@ export function getQuestions(page:number,pageSize:number) {
     return request(
         {
             url: '/qa/questions',
-            method: 'GET',
+            method: 'POST',
             params: {
                 page: page,
                 pageSize: pageSize

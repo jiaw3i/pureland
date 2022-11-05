@@ -23,7 +23,7 @@ export default function QAContent() {
         "按照时间排序",
         "按照难度排序",
     ];
-    const [hasMore, setHasMore] = React.useState<boolean>(false);
+    const [hasMore, setHasMore] = React.useState<boolean>(true);
 
     /**
      * 初始化数据
@@ -45,6 +45,16 @@ export default function QAContent() {
 
     const loadMoreData = () => {
         console.log("load more");
+        getQuestions(page, pageSize).then(res => {
+            if (res.success) {
+                if (res.data?.length === 0){
+                    setHasMore(false);
+                    return;
+                }
+                setQuestions([...questions, ...res.data]);
+                setPage(page + 1);
+            }
+        });
     }
     const filterQuestion = (id: number) => {
         // 根据id过滤question
@@ -84,7 +94,7 @@ export default function QAContent() {
                     <div
                         id="scrollableDiv"
                         style={{
-                            height: 400,
+                            height: 100,
                             overflow: 'auto',
                             padding: '0 16px',
                             border: '1px solid rgba(140, 140, 140, 0.35)',
@@ -94,7 +104,7 @@ export default function QAContent() {
                             dataLength={questions.length}
                             next={loadMoreData}
                             hasMore={hasMore}
-                            loader={<Skeleton avatar paragraph={{rows: 1}}/>}
+                            loader={<Divider plain>Loading~</Divider>}
                             endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
                             scrollableTarget="scrollableDiv"
                         >
