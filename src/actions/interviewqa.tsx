@@ -33,14 +33,19 @@ export function deleteTagById(id: number) {
 }
 
 
-export function getQuestions(page:number,pageSize:number) {
+export function getQuestions(page:number,pageSize:number,options?:{
+    sortField?:string,
+    sortType?:string,
+}) {
     return request(
         {
             url: '/qa/questions',
             method: 'POST',
             params: {
                 page: page,
-                pageSize: pageSize
+                pageSize: pageSize,
+                sortField: options?.sortField,
+                sortType: options?.sortType
             }
         }
     )

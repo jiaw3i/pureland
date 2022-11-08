@@ -20,8 +20,13 @@ export default function QAContent() {
     const [questions, setQuestions] = React.useState<Array<QuestionType>>([]);
 
     const sortOptions = [
-        "按照时间排序",
-        "按照难度排序",
+        {
+            label: "按照时间排序",
+            value: "create_time"
+        },{
+            label: "按照难度排序",
+            value: "level"
+        }
     ];
     const [hasMore, setHasMore] = React.useState<boolean>(true);
 
@@ -47,7 +52,7 @@ export default function QAContent() {
         console.log("load more");
         getQuestions(page, pageSize).then(res => {
             if (res.success) {
-                if (res.data?.length === 0){
+                if (res.data?.length === 0) {
                     setHasMore(false);
                     return;
                 }
@@ -72,7 +77,10 @@ export default function QAContent() {
                 <div className={styles.qaFilter}>
                     <div className={styles.qaFilterTag}>
                         <label className={styles.qaFilterTagLabel}>标签</label>
-                        <Checkbox.Group options={tags?.map(tag => tag.tagName)} defaultValue={['Apple']}>
+                        <Checkbox.Group
+                            options={tags?.map(tag => tag.tagName)}
+
+                        >
 
                         </Checkbox.Group>
 
@@ -86,6 +94,16 @@ export default function QAContent() {
                             options={sortOptions}
                             optionType="button"
                             buttonStyle="solid"
+                            onChange={(e) => {
+                                console.log(e.target.value);
+                                setPage(1);
+                                getQuestions(page,pageSize,{
+                                    sortField: e.target.value,
+                                    sortType: "asc"
+                                }).then(res=>{
+                                   setQuestions(res.data);
+                                });
+                            }}
                         />
                     </div>
                 </div>
