@@ -18,6 +18,12 @@ export default function QAContent() {
     const [page, setPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(15);
     const [questions, setQuestions] = React.useState<Array<QuestionType>>([]);
+    const [filterOptions, setFilterOptions] = React.useState<{
+        tags: Array<string>,
+        sortField: string,
+        sortType: string
+    }>({} as any);
+
 
     const sortOptions = [
         {
@@ -82,9 +88,10 @@ export default function QAContent() {
                             onChange={(checkedValues) => {
                                 setPage(1);
                                 console.log(checkedValues);
-                                getQuestions(page, pageSize, {
-                                    tags: checkedValues as Array<string>
-                                }).then(res => {
+                                filterOptions.tags = checkedValues as Array<string>;
+
+                                setFilterOptions({...filterOptions});
+                                getQuestions(page, pageSize, filterOptions).then(res => {
                                     if (res.success) {
                                         setQuestions(res.data);
                                     }
@@ -105,13 +112,12 @@ export default function QAContent() {
                             optionType="button"
                             buttonStyle="solid"
                             onChange={(e) => {
-                                console.log(e.target.value);
                                 setPage(1);
-                                getQuestions(page, pageSize, {
-                                    sortField: e.target.value,
-                                    sortType: "asc"
-                                }).then(res => {
-                                    if (res.success){
+                                filterOptions.sortField = e.target.value;
+                                filterOptions.sortType = "asc";
+                                setFilterOptions({...filterOptions});
+                                getQuestions(page, pageSize, filterOptions).then(res => {
+                                    if (res.success) {
                                         setQuestions(res.data);
                                     }
                                 });
