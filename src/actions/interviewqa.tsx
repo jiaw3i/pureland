@@ -36,6 +36,7 @@ export function deleteTagById(id: number) {
 export function getQuestions(page:number,pageSize:number,options?:{
     sortField?:string,
     sortType?:string,
+    tags?:Array<string>
 }) {
     return request(
         {
@@ -45,7 +46,8 @@ export function getQuestions(page:number,pageSize:number,options?:{
                 page: page,
                 pageSize: pageSize,
                 sortField: options?.sortField,
-                sortType: options?.sortType
+                sortType: options?.sortType,
+                tags: options?.tags
             }
         }
     )

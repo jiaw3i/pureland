@@ -23,7 +23,7 @@ export default function QAContent() {
         {
             label: "按照时间排序",
             value: "create_time"
-        },{
+        }, {
             label: "按照难度排序",
             value: "level"
         }
@@ -79,7 +79,17 @@ export default function QAContent() {
                         <label className={styles.qaFilterTagLabel}>标签</label>
                         <Checkbox.Group
                             options={tags?.map(tag => tag.tagName)}
-
+                            onChange={(checkedValues) => {
+                                setPage(1);
+                                console.log(checkedValues);
+                                getQuestions(page, pageSize, {
+                                    tags: checkedValues as Array<string>
+                                }).then(res => {
+                                    if (res.success) {
+                                        setQuestions(res.data);
+                                    }
+                                });
+                            }}
                         >
 
                         </Checkbox.Group>
@@ -97,11 +107,13 @@ export default function QAContent() {
                             onChange={(e) => {
                                 console.log(e.target.value);
                                 setPage(1);
-                                getQuestions(page,pageSize,{
+                                getQuestions(page, pageSize, {
                                     sortField: e.target.value,
                                     sortType: "asc"
-                                }).then(res=>{
-                                   setQuestions(res.data);
+                                }).then(res => {
+                                    if (res.success){
+                                        setQuestions(res.data);
+                                    }
                                 });
                             }}
                         />
