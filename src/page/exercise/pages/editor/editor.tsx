@@ -56,7 +56,6 @@ export default function VEditor({
             toolbar,
             height:"100%",
             input(value: string) {
-                console.log(value)
                 triggerChange(value)
             },
             after: () => {

@@ -53,6 +53,17 @@ export function getQuestions(page:number,pageSize:number,options?:{
     )
 }
 
+export function updateQuestion(question:QuestionType){
+    console.log(question);
+    return request(
+        {
+            url: '/qa/question/update',
+            method: 'PUT',
+            params: question
+        }
+)
+}
+
 export function insertQuestion(question: QuestionType) {
     return request(
         {
