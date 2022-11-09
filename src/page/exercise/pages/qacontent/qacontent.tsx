@@ -91,7 +91,7 @@ export default function QAContent() {
                                 filterOptions.tags = checkedValues as Array<string>;
 
                                 setFilterOptions({...filterOptions});
-                                getQuestions(page, pageSize, filterOptions).then(res => {
+                                getQuestions(1, pageSize, filterOptions).then(res => {
                                     if (res.success) {
                                         setQuestions(res.data);
                                     }
