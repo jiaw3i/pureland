@@ -45,7 +45,9 @@ export default function QAContent() {
                 setTags(res.data);
             }
         });
-        getQuestions(page, pageSize).then(res => {
+        getQuestions(page, pageSize,{
+            tags: ["Java"],
+        }).then(res => {
             if (res.success) {
                 setQuestions(res.data);
                 setPage(page + 1);
@@ -84,6 +86,7 @@ export default function QAContent() {
                     <div className={styles.qaFilterTag}>
                         <label className={styles.qaFilterTagLabel}>标签</label>
                         <Checkbox.Group
+                            defaultValue={["Java"]}
                             options={tags?.map(tag => tag.tagName)}
                             onChange={(checkedValues) => {
                                 setPage(1);

@@ -33,10 +33,10 @@ export function deleteTagById(id: number) {
 }
 
 
-export function getQuestions(page:number,pageSize:number,options?:{
-    sortField?:string,
-    sortType?:string,
-    tags?:Array<string>
+export function getQuestions(page: number, pageSize: number, options?: {
+    sortField?: string,
+    sortType?: string,
+    tags?: Array<string>
 }) {
     return request(
         {
@@ -53,7 +53,7 @@ export function getQuestions(page:number,pageSize:number,options?:{
     )
 }
 
-export function updateQuestion(question:QuestionType){
+export function updateQuestion(question: QuestionType) {
     console.log(question);
     return request(
         {
@@ -61,7 +61,7 @@ export function updateQuestion(question:QuestionType){
             method: 'PUT',
             params: question
         }
-)
+    )
 }
 
 export function insertQuestion(question: QuestionType) {
@@ -76,7 +76,7 @@ export function insertQuestion(question: QuestionType) {
     )
 }
 
-export function getQuestionById(id: number) {
+export function getQuestionById(id: number | undefined) {
     return request(
         {
             url: `/qa/question/${id}`,

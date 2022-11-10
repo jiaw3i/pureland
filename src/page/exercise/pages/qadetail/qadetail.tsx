@@ -8,7 +8,7 @@ import {QuestionType} from "../questionmanager/qmanage";
 import VEditor from "../editor/editor";
 import MDPreview from "../editor/mdpreview";
 import {SelectOutlined} from "@ant-design/icons";
-import {updateQuestion} from "../../../../actions/interviewqa";
+import {getQuestionById, updateQuestion} from "../../../../actions/interviewqa";
 import {openSuccess} from "../../../../utils/util";
 
 export default function QADetail() {
@@ -22,10 +22,15 @@ export default function QADetail() {
     }>();
 
     useEffect(() => {
-        setQuestion(location.state[0] as QuestionType);
+        console.log(params);
+        getQuestionById(11).then(res => {
+            if (res.success){
+                setQuestion(res.data);
+            }
+        });
         editorRef.current?.setEditorValue("");
         console.log(question);
-    }, [location.state, question]);
+    }, []);
 
     const myAnswerOnChange = (value: string | undefined) => {
         setMyAnswer(value ? value : "");
@@ -40,6 +45,11 @@ export default function QADetail() {
         updateQuestion(updatedQuestion).then(res => {
            if (res.success){
                openSuccess("top","保存成功😊");
+               getQuestionById(question.id).then(res => {
+                   if (res.success){
+                       setQuestion(res.data);
+                   }
+               });
            }
         });
     }
@@ -55,13 +65,13 @@ export default function QADetail() {
 
                 <div className={styles.questionDetailTitleMain}>
                     <div className={styles.questionDetailTitle}>
-                        <Tag color="#2db7f5">{question.type}</Tag>
-                        <p>{question.id}. {question.content}</p>
+                        <Tag color="#2db7f5">{question?.type}</Tag>
+                        <p>{question?.id}. {question?.content}</p>
 
                     </div>
 
                     <div className={styles.questionDetailLevel}>
-                        难度：<Rate disabled value={question.level}/>
+                        难度：<Rate disabled value={question?.level}/>
                     </div>
                 </div>
                 <Divider>题目</Divider>
@@ -77,7 +87,7 @@ export default function QADetail() {
 
                     <div className={styles.questionDetailContentRight}>
                         <div className={styles.questionDetailContentAnswer}>
-                            <MDPreview value={question.answer}></MDPreview>
+                            <MDPreview value={question?.answer}></MDPreview>
                         </div>
                     </div>
                 </div>
