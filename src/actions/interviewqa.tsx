@@ -84,3 +84,15 @@ export function getQuestionById(id: number | undefined) {
         }
     )
 }
+
+export function importQuestionFromExcel(file: any) {
+    return request(
+        {
+            url: '/qa/question/import',
+            method: 'POST',
+            params: {
+                file: file
+            }
+        }
+    )
+}
