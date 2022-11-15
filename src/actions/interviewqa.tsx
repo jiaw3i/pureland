@@ -88,8 +88,11 @@ export function getQuestionById(id: number | undefined) {
 export function importQuestionFromExcel(file: any) {
     return request(
         {
-            url: '/qa/question/import',
+            url: '/qa/question/import/excel',
             method: 'POST',
+            headers: {
+                "content-type": "multipart/form-data"
+            },
             params: {
                 file: file
             }

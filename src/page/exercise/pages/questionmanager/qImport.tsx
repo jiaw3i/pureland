@@ -5,6 +5,7 @@ import {PlusOutlined} from "@ant-design/icons";
 import VEditor from "../editor/editor";
 import React, {useState} from "react";
 import {useForm} from "antd/es/form/Form";
+import {importQuestionFromExcel} from "../../../../actions/interviewqa";
 
 export default function QImport(){
 
@@ -20,6 +21,9 @@ export default function QImport(){
 
     const fileUpload=(e:any)=>{
         // e.dragger[0].originFileObj
+        importQuestionFromExcel(e.dragger[0].originFileObj).then(res=>{
+            console.log(res);
+        });
         console.log("finish",e.dragger[0].originFileObj);
     }
     const beforeUpload=(file:any)=>{
